@@ -33,7 +33,7 @@ exit /b 1
 timeout /t 5 /nobreak >nul
 
 :: Frontend ve backend portlarını dinamik olarak alıyoruz
-for /f "tokens=2 delims=: " %%a in ('podman ps --filter "name=front" --format "{{.Ports}}"') do (
+for /f "tokens=2 delims=: " %%a in ('podman ps --filter "name=frontend" --format "{{.Ports}}"') do (
     for /f "tokens=1 delims=->" %%b in ("%%a") do set FRONTEND_PORT=%%b
 )
 
