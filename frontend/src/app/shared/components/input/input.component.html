@@ -1,0 +1,31 @@
+<div class="flex flex-col w-full mb-4">
+  <label
+    *ngIf="label"
+    class="font-bold text-lg mb-1 text-gray-700"
+    [for]="label"
+  >
+    {{ label }}
+  </label>
+  <div class="relative flex items-center">
+    <input
+      [type]="type"
+      [id]="label"
+      [placeholder]="placeholder"
+      [disabled]="isDisabled"
+      [(ngModel)]="value"
+      (input)="handleInputChange($event)"
+      class="w-full py-2 px-4 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <ng-container *ngIf="icon">
+      <span
+        class="absolute right-4 cursor-pointer text-gray-500"
+        (click)="handleInputChange($event)"
+      >
+        <i [ngClass]="icon"></i>
+      </span>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="helperText">
+    <p class="mt-1 text-sm text-red-500">{{ helperText }}</p>
+  </ng-container>
+</div>

@@ -1,0 +1,22 @@
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="text-left px-4 py-2 border border-gray-300">Offer ID</th>
+        <th class="text-left px-4 py-2 border border-gray-300">Product Id</th>
+        <th class="text-left px-4 py-2 border border-gray-300">Offer Name</th>
+        <th class="text-left px-4 py-2 border border-gray-300">Discount(%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offers of offers" class="border-t border-gray-300">
+        <td class="px-4 py-2 border border-gray-300">{{ offers.id }}</td>
+        <td class="px-4 py-2 border border-gray-300">{{ offers.productId }}</td>
+        <td class="px-4 py-2 border border-gray-300">{{ offers.name }}</td>
+        <td class="px-4 py-2 border border-gray-300">
+          {{ offers.discount }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

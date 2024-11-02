@@ -1,0 +1,13 @@
+.active-tab {
+    @apply bg-gradient-to-b from-[#0f0f2c] to-white text-white rounded-t-lg;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .inactive-tab {
+    @apply bg-gray-200 text-[#3d3d4d] rounded-t-lg;
+  }
+  
+  div {
+    transition: all 0.3s ease-in-out;
+  }
+  

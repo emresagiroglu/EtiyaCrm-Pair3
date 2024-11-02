@@ -1,0 +1,96 @@
+<main class="overflow-hidden">
+  <div class="p-6 w-full h-full flex flex-col">
+    <div class="border-2 border-black p-6 sm:pb-12 w-full h-full">
+      <p class="text-xl font-medium mb-4">Customer Update</p>
+
+      <form
+        [formGroup]="customerUpdateForm"
+        class="border-2 border-black p-6 pb-12 grid grid-cols-2 gap-6"
+      >
+        <div class="sm:col-span-1 sm:flex flex-col">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="border p-2 rounded"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              customerUpdateForm.controls['email'].invalid &&
+              customerUpdateForm.controls['email'].touched
+            "
+            class="text-red-500"
+          >
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label for="phone">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            class="border p-2 rounded"
+            formControlName="phone"
+          />
+          <div
+            *ngIf="
+              customerUpdateForm.controls['phone'].invalid &&
+              customerUpdateForm.controls['phone'].touched
+            "
+            class="text-red-500"
+          >
+            Please enter a valid phone number
+          </div>
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label for="fax">Fax</label>
+          <input
+            type="tel"
+            id="fax"
+            class="border p-2 rounded"
+            formControlName="fax"
+          />
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label for="homePhone">Home Phone</label>
+          <input
+            type="tel"
+            id="homePhone"
+            class="border p-2 rounded"
+            formControlName="homePhone"
+          />
+        </div>
+
+        <div class="flex justify-around gap-5 mt-4 col-span-2">
+          <app-button
+            [label]="'Exit'"
+            [type]="'secondary'"
+            [width]="'150px'"
+            [isDisabled]="false"
+            (onClick)="handleExit()"
+          ></app-button>
+          
+          <app-button
+            [label]="'Previous'"
+            [type]="'primary'"
+            [width]="'150px'"
+            [isDisabled]="false"
+            (onClick)="handlePrevious()"
+          ></app-button>
+          
+          <app-button
+            [label]="'Save'"
+            [type]="'primary'"
+            [width]="'150px'"
+            [isDisabled]="false"
+            (onClick)="handleButtonClick()"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

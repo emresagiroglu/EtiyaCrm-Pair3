@@ -1,0 +1,24 @@
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="text-left px-4 py-2 border border-gray-300">Campaing ID</th>
+        <th class="text-left px-4 py-2 border border-gray-300">
+          Campaing Name
+        </th>
+        <th class="text-left px-4 py-2 border border-gray-300">
+          Campaing End Date
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let campaigns of campaigns" class="border-t border-gray-300">
+        <td class="px-4 py-2 border border-gray-300">{{ campaigns.id }}</td>
+        <td class="px-4 py-2 border border-gray-300">{{ campaigns.name }}</td>
+        <td class="px-4 py-2 border border-gray-300">
+          {{ campaigns.endDate }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

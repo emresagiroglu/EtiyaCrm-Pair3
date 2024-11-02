@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    height: 100vh;
+    background-size: cover;
+    background-image: url("/assets/images/front_blur.png");
+  }
+    
+  .flex {
+    min-height: calc(100vh - 80px);
+    box-sizing: border-box; 
+  }

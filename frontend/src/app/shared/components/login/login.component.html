@@ -1,0 +1,88 @@
+<div class="w-full sm:flex justify-between">
+  <div
+    class="w-full flex flex-col justify-center items-center sm:w-1/2 p-6 bg-gradient-to-t from-gray-200 to-white"
+  >
+    <p class="text-black font-semibold text-2xl">
+      Sign in with your organizational account
+    </p>
+    <form class="my-12" [formGroup]="form" (submit)="submitForm()">
+      <div>
+        <label for="floatingInput">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+          formControlName="email"
+          class="w-full mb-8 mt-2 py-2 px-4 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <label for="floatingPassword">Password</label>
+        <div class="relative w-full">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            class="form-control w-full mt-2 py-2 px-4 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+            id="floatingPassword"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-800 dark:text-white"
+          >
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-width="2"
+                d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="2"
+                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="flex justify-center mt-3">
+        <app-button
+          [label]="'Login'"
+          [type]="'primary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+          (onClick)="submitForm()"
+        ></app-button>
+      </div>
+      <div class="flex justify-between gap-4 mt-6">
+        <div class="flex gap-2">
+          <input
+            id="default-checkbox"
+            type="checkbox"
+            value=""
+            class="w-4 h-4 mt-1 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <p class="">Remember me</p>
+        </div>
+        <div>
+          <a class="underline" href="Forgot Password">Forgot Password</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="w-full sm:w-1/2">
+    <img
+      class=""
+      src="../../../../assets/images/login-logo.png"
+      alt="Login Logo"
+    />
+  </div>
+</div>

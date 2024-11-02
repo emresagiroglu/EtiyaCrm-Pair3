@@ -1,0 +1,188 @@
+<main class="overflow-hidden">
+  <div class="p-6 w-full h-full flex flex-col">
+    <p class="text-xl text-black font-semibold mb-4">Create Customer</p>
+    <div class="border-2 border-white p-6 sm:pb-12 w-full h-full">
+      <p class="text-xl text-black font-semibold mb-4">
+        Demographic Information
+      </p>
+      <form
+        [formGroup]="customerForm"
+        class="border-2 border-white p-6 pb-12 grid grid-cols-2 gap-6"
+      >
+        <div class="sm:col-span-1 sm:flex flex-col">
+          <label class="text-xl font-semibold text-black" for="firstName"
+            >First Name *</label
+          >
+          <input
+            type="text"
+            id="firstName"
+            class="border p-2 rounded"
+            formControlName="firstName"
+          />
+          <div
+            *ngIf="
+              customerForm.controls['firstName'].invalid &&
+              customerForm.controls['firstName'].touched
+            "
+            class="text-red-600 font-bold"
+          >
+            First Name must be at least 2 characters long.
+          </div>
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="middleName"
+            >Middle Name</label
+          >
+          <input
+            type="text"
+            id="middleName"
+            class="border p-2 rounded"
+            formControlName="middleName"
+          />
+        </div>
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="lastName"
+            >Last Name *</label
+          >
+          <input
+            type="text"
+            id="lastName"
+            class="border p-2 rounded"
+            formControlName="lastName"
+          />
+          <div
+            *ngIf="
+              customerForm.controls['lastName'].invalid &&
+              customerForm.controls['lastName'].touched
+            "
+            class="text-red-600 font-bold"
+          >
+            Last Name must be at least 2 characters long.
+          </div>
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="birthDate"
+            >Birth Date*</label
+          >
+          <input
+            type="date"
+            id="birthDate"
+            class="border p-2 rounded"
+            formControlName="birthDate"
+            [max]="maxDate"
+          />
+        </div>
+
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="gender"
+            >Gender*</label
+          >
+          <select
+            id="gender"
+            class="border p-2 rounded"
+            formControlName="gender"
+          >
+            <option value="" disabled>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <div
+            *ngIf="
+              customerForm.controls['gender'].invalid &&
+              customerForm.controls['gender'].touched
+            "
+            class="text-red-600 font-bold"
+          >
+            You must choose gender
+          </div>
+        </div>
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="fatherName"
+            >Father Name</label
+          >
+          <input
+            type="text"
+            id="fatherName"
+            class="border p-2 rounded"
+            formControlName="fatherName"
+          />
+        </div>
+        <div class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="motherName"
+            >Mother Name</label
+          >
+          <input
+            type="text"
+            id="motherName"
+            class="border p-2 rounded"
+            formControlName="motherName"
+          />
+        </div>
+        <div *ngIf="selectedOption === 'all'" class="col-span-1 flex flex-col">
+          <label class="text-xl font-semibold text-black" for="nationalityId"
+            >Nationality ID</label
+          >
+          <input
+            type="text"
+            id="nationalityId"
+            class="border p-2 rounded"
+            formControlName="nationalityId"
+          />
+          <div
+            *ngIf="
+              customerForm.controls['nationalityId'].invalid &&
+              customerForm.controls['nationalityId'].touched
+            "
+            class="text-red-600 font-bold"
+          >
+            Nationality ID must be at least 11 characters long.
+          </div>
+        </div>
+      </form>
+      <div class="mt-4">
+        <label class="text-xl font-semibold text-black">Nationality</label>
+        <div class="flex items-center space-x-4 mt-2">
+          <label class="flex items-center">
+            <input
+              type="radio"
+              name="nationality"
+              [(ngModel)]="selectedOption"
+              value="all"
+              class="mr-2"
+            />
+            Turkish
+          </label>
+          <label class="flex items-center">
+            <input
+              type="radio"
+              name="nationality"
+              [(ngModel)]="selectedOption"
+              value="hide"
+              class="mr-2"
+            />
+            Other
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-around mt-6">
+        <app-button
+          [label]="'Exit'"
+          [type]="'primary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+          (onClick)="toggleModal()"
+        ></app-button>
+        <app-button
+          [label]="'Next'"
+          [type]="'primary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+          (onClick)="handleButtonClick()"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</main>

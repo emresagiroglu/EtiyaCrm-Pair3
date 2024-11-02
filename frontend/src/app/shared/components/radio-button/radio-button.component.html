@@ -1,0 +1,13 @@
+<div class="flex items-center mb-4">
+  <ng-container *ngFor="let option of options">
+    <input
+      type="radio"
+      [id]="option.value"
+      [value]="option.value"
+      [(ngModel)]="selectedOption"
+      (change)="onOptionChange(option.value)"
+      class="mr-2"
+    />
+    <label [for]="option.value" class="mr-4">{{ option.label }}</label>
+  </ng-container>
+</div>

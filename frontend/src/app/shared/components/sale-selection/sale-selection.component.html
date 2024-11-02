@@ -1,0 +1,182 @@
+<main class="overflow-hidden">
+  <div class="p-6 w-full h-full flex flex-col">
+    <p class="text-xl ml-8 font-medium mb-4">Sale Selection</p>
+    <div class="border-2 border-black p-6 sm:pb-12 w-full h-full">
+      <div class="mt-3 w-full sm:flex gap-6">
+        <div class="TABS w-full sm:w-3/6">
+          <app-tabs [tabs]="tabs" [activeTab]="0">
+            <div tabContent0>
+              <div class="w-full bg-gray-200 rounded-xl p-6">
+                <p class="text-xl text-blue-900">Catalog Selection</p>
+                <select
+                  id="catalog"
+                  class="border bg-gray-100 p-2 rounded"
+                  formControlName="catalog"
+                >
+                  <option value="" disabled>Select catalog</option>
+                  <option value="catalog">Catalogs</option>
+                </select>
+                <div class="sm:flex justify-between my-6">
+                  <div class="sm:flex flex-col">
+                    <label for="firstName">Product ID</label>
+                    <input
+                      type="number"
+                      id="firstName"
+                      class="border p-2 rounded"
+                      formControlName="productId"
+                    />
+                  </div>
+
+                  <div class="flex flex-col">
+                    <label for="middleName">Product Name</label>
+                    <input
+                      type="text"
+                      id="product_name"
+                      class="border p-2 rounded"
+                      formControlName="product_name"
+                    />
+                  </div>
+                  <app-button
+                    class="mt-6"
+                    [label]="'Search'"
+                    [type]="'primary'"
+                    [width]="'150px'"
+                    [isDisabled]="false"
+                    (onClick)="searchClick()"
+                  ></app-button>
+                </div>
+                <app-product-table></app-product-table>
+              </div>
+            </div>
+            <div tabContent1>
+              <div class="w-full bg-gray-200 rounded-xl p-6">
+                <p class="text-xl text-blue-900">Catalog Selection</p>
+                <select
+                  id="catalog"
+                  class="border bg-gray-100 p-2 rounded"
+                  formControlName="catalog"
+                >
+                  <option value="" disabled>Select catalog</option>
+                  <option value="catalog">Catalogs</option>
+                </select>
+                <div class="sm:flex justify-between my-6">
+                  <div class="sm:flex flex-col">
+                    <label for="firstName">Campaing ID</label>
+                    <input
+                      type="number"
+                      id="firstName"
+                      class="border p-2 rounded"
+                      formControlName="productId"
+                    />
+                  </div>
+
+                  <div class="flex flex-col">
+                    <label for="middleName">Campaing Name</label>
+                    <input
+                      type="text"
+                      id="product_name"
+                      class="border p-2 rounded"
+                      formControlName="product_name"
+                    />
+                  </div>
+                  <app-button
+                    class="mt-6"
+                    [label]="'Search'"
+                    [type]="'primary'"
+                    [width]="'150px'"
+                    [isDisabled]="false"
+                    (onClick)="searchClick()"
+                  ></app-button>
+                </div>
+                <app-campaing-table></app-campaing-table>
+              </div>
+            </div>
+            <div tabContent2>
+              <div class="w-full bg-gray-200 rounded-xl p-6">
+                <p class="text-xl text-blue-900">Catalog Selection</p>
+                <select
+                  id="catalog"
+                  class="border bg-gray-100 p-2 rounded"
+                  formControlName="catalog"
+                >
+                  <option value="" disabled>Select catalog</option>
+                  <option value="catalog">Catalogs</option>
+                </select>
+                <div class="sm:flex justify-between my-6">
+                  <div class="sm:flex flex-col">
+                    <label for="firstName">Offer ID</label>
+                    <input
+                      type="number"
+                      id="firstName"
+                      class="border p-2 rounded"
+                      formControlName="productId"
+                    />
+                  </div>
+
+                  <div class="flex flex-col">
+                    <label for="middleName">Offer Name</label>
+                    <input
+                      type="text"
+                      id="product_name"
+                      class="border p-2 rounded"
+                      formControlName="product_name"
+                    />
+                  </div>
+                  <app-button
+                    class="mt-6"
+                    [label]="'Search'"
+                    [type]="'primary'"
+                    [width]="'150px'"
+                    [isDisabled]="false"
+                    (onClick)="searchClick()"
+                  ></app-button>
+                </div>
+                <app-offer-table></app-offer-table>
+              </div>
+            </div>
+          </app-tabs>
+        </div>
+        <div class="w-full sm:w-1/6">
+          <div class="flex items-center justify-center h-full">
+            <app-button
+              class="mt-6"
+              [label]="'Add to Cart ->'"
+              [type]="'primary'"
+              [width]="'150px'"
+              [isDisabled]="false"
+              (onClick)="addToCart()"
+            ></app-button>
+          </div>
+        </div>
+        <div class="w-full sm:w-2/6">
+          <div class="w-full h-full p-6 rounded-lg bg-gray-200">
+            <p class="text-xl font-semibold">Cart</p>
+            <hr class="bg-gray-600 h-1 w-full my-1" />
+            <p>Cart Bilgileri</p>
+            <div
+              class="flex flex-col items-center justify-end h-full mt-[-60px]"
+            >
+              <app-button
+                class="mt-6"
+                [label]="'Clear'"
+                [type]="'primary'"
+                [width]="'150px'"
+                [isDisabled]="false"
+                (onClick)="addToCart()"
+              ></app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <app-button
+          class="mt-6"
+          [label]="'Next'"
+          [type]="'primary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</main>
