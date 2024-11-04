@@ -1,8 +1,7 @@
-export interface CustomerCncResponse
+export interface CncInfoCreateResponse
 {
         id: number,
         customerId: number,
-        contactName: string,
         email: string,
         homePhone:string,
         mobilePhone:string,

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerCncinfoService } from '../../services/customer-service/customer-cncinfo.service';
-import { CustomerCncInfoResponse } from '../../models/customer/customerCncInfoResponse';
 import { PopupComponent } from '../popup/popup.component';
 import { ButtonComponent } from '../button/button.component';
 import { Router } from '@angular/router';
+import { CncInfoCreateResponse } from '../../models/cnc-info/cncInfoCreateResponse';
+import { ContactInfoService } from '../../services/customer-service/contact-info.service';
+import { CustomerService } from '../../services/customer-service/customer.service';
+import { CustomerGetByIdResponse } from '../../models/customer/customerGetByIdResponse';
 
 @Component({
   selector: 'app-customer-info',
@@ -16,12 +18,12 @@ import { Router } from '@angular/router';
 })
 export class CustomerInfoComponent implements OnInit {
   showModal: boolean = false;
-  customer: CustomerCncInfoResponse = {} as CustomerCncInfoResponse;
+  customer: CustomerGetByIdResponse = {} as CustomerGetByIdResponse;
 
   constructor(
     private router: Router,
-    private customerCncInfoService: CustomerCncinfoService,
-    private route: ActivatedRoute // ActivatedRoute servisini ekleyin
+    private customerService: CustomerService,
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   getCustomer(id: number) {
-    this.customerCncInfoService
+    this.customerService
       .getCustomerById({ id })
       .subscribe((response) => {
         this.customer = response;

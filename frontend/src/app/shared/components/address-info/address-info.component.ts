@@ -1,9 +1,10 @@
-import { AddressSummary } from './../../models/customer/address/AddressSummary';
-import { AddressRequest } from './../../models/customer/address/AddressRequest';
-import { DistrictRequest } from './../../models/customer/address/DistrictRequest';
-import { CityResponse } from './../../models/customer/address/CityResponse';
+import { CustomerService } from './../../services/customer-service/customer.service';
+import { AddressSummary } from '../../models/address/AddressSummary';
+import { AddressRequest } from '../../models/address/AddressRequest';
+import { DistrictRequest } from '../../models/address/DistrictRequest';
+import { CityResponse } from '../../models/address/CityResponse';
 import { AddressService } from './../../services/customer-service/address.service';
-import { CityRequest } from './../../models/customer/address/CityRequest';
+import { CityRequest } from '../../models/address/CityRequest';
 import { Component, Input, OnInit } from '@angular/core';
 import { PopupComponent } from '../popup/popup.component';
 import { ButtonComponent } from '../button/button.component';
@@ -11,9 +12,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, Validators,ReactiveFormsModule, NgForm } from '@angular/forms';
 import { RadioButtonComponent } from '../radio-button/radio-button.component';;
 import { Observable } from 'rxjs';
-import { NeighbourhoodRequest } from '../../models/customer/address/NeighbourhoodRequest';
-import { AddressResponse } from '../../models/customer/address/AddressResponse';
-import { CustomerIdService } from '../../services/customer-service/customer-id.service';
+import { NeighbourhoodRequest } from '../../models/address/NeighbourhoodRequest';
+import { AddressResponse } from '../../models/address/AddressResponse';
 import { Route, Router } from '@angular/router';
 
 
@@ -43,7 +43,7 @@ export class AddressInfoComponent implements OnInit{
   addressSummary: AddressSummary[] = []
 
 
-  constructor(private formBuilder : FormBuilder, private addressService: AddressService,private customerIdService : CustomerIdService, private router : Router)
+  constructor(private formBuilder : FormBuilder, private addressService: AddressService,private customerService : CustomerService, private router : Router)
   {
     this.addressForm = this.formBuilder.group({
       city: ['', [Validators.required, Validators.minLength(2)]],
@@ -53,7 +53,7 @@ export class AddressInfoComponent implements OnInit{
       neighbourhood: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]]
     })
-    this.currentCustomerId = this.customerIdService.customerId;
+    this.currentCustomerId = this.customerService.customerId;
   }
 
   selectedOption: string = 'all';
@@ -107,6 +107,9 @@ export class AddressInfoComponent implements OnInit{
       this.router.navigate(['/customer-update']);
     }
     
+  }
+  previousComponent(){
+    this.router.navigate(['/customer-create']);
   }
 
 
