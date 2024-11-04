@@ -4,129 +4,314 @@
       <!-- İlk sekmenin içeriği -->
       <div tabContent0>
         <div class="w-full sm:flex p-6">
-          <div class="sm:w-1/4 bg-gray-500 p-3">
+          <div class="sm:w-1/4 bg-gray-500 rounded-lg opacity-80 p-3">
             <form [formGroup]="searchForm" (submit)="submitForm()">
-              <label for="floatingInput" class="font-bold text-md text-white">NAT ID Number</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >NAT ID Number</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="nationalityId"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
               <div
-                *ngIf="searchForm.get('nationalityId')?.hasError('onlyNumeric') && searchForm.get('nationalityId')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+                *ngIf="
+                  searchForm.get('nationalityId')?.hasError('onlyNumeric') &&
+                  searchForm.get('nationalityId')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only numeric values!
               </div>
 
-              <label for="floatingInput" class="font-bold text-md text-white">Customer ID</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >Customer ID</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="id"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <div *ngIf="searchForm.get('id')?.hasError('onlyNumeric') && searchForm.get('id')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              <div
+                *ngIf="
+                  searchForm.get('id')?.hasError('onlyNumeric') &&
+                  searchForm.get('id')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only numeric values!
               </div>
 
-              <label for="floatingInput" class="font-bold text-md text-white">Account Number</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >Account Number</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="accountNumber"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
               <div
-                *ngIf="searchForm.get('accountNumber')?.hasError('onlyNumeric') && searchForm.get('accountNumber')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+                *ngIf="
+                  searchForm.get('accountNumber')?.hasError('onlyNumeric') &&
+                  searchForm.get('accountNumber')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only numeric values!
               </div>
 
-              <label for="floatingInput" class="font-bold text-md text-white">GSM Number</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder="+90_ _ _ _ _ _ _ _ _ _"
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >GSM Number</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="+90_ _ _ _ _ _ _ _ _ _"
                 formControlName="mobilePhone"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
               <div
-                *ngIf="searchForm.get('mobilePhone')?.hasError('onlyNumeric') && searchForm.get('mobilePhone')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+                *ngIf="
+                  searchForm.get('mobilePhone')?.hasError('onlyNumeric') &&
+                  searchForm.get('mobilePhone')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only numeric values!
               </div>
 
-              <label for="floatingInput" class="font-bold text-md text-white">First Name</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="firstName"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <div *ngIf="searchForm.get('firstName')?.hasError('onlyText') && searchForm.get('firstName')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >First Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder=" "
+                formControlName="firstName"
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              <div
+                *ngIf="
+                  searchForm.get('firstName')?.hasError('onlyText') &&
+                  searchForm.get('firstName')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only text values!
               </div>
-              <label for="floatingInput" class="font-bold text-md text-white">Middle Name</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="middleName"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <div *ngIf="searchForm.get('middleName')?.hasError('onlyText') && searchForm.get('middleName')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >Middle Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder=" "
+                formControlName="middleName"
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              <div
+                *ngIf="
+                  searchForm.get('middleName')?.hasError('onlyText') &&
+                  searchForm.get('middleName')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only text values!
               </div>
 
-              <label for="floatingInput" class="font-bold text-md text-white">Last Name</label>
-              <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="lastName"
-                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <div *ngIf="searchForm.get('lastName')?.hasError('onlyText') && searchForm.get('lastName')?.touched"
-                class="px-2 my-0 text-red-600 font-bold">
+              <label for="floatingInput" class="font-bold text-md text-white"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder=" "
+                formControlName="lastName"
+                class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+              <div
+                *ngIf="
+                  searchForm.get('lastName')?.hasError('onlyText') &&
+                  searchForm.get('lastName')?.touched
+                "
+                class="px-2 my-0 text-red-600 font-bold"
+              >
                 Only text values!
               </div>
 
               <div class="flex justify-around gap-5 my-7">
-                <app-button [label]="'Cancel'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
-                  (onClick)="handleButtonClick()"></app-button>
-                <app-button [label]="'Search'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
-                  (onClick)="submitForm()"></app-button>
+                <app-button
+                  [label]="'Cancel'"
+                  [type]="'primary'"
+                  [width]="'150px'"
+                  [isDisabled]="false"
+                  (onClick)="handleButtonClick()"
+                ></app-button>
+
+                <app-button
+                  [label]="'Search'"
+                  [type]="'primary'"
+                  [width]="'150px'"
+                  [isDisabled]="false"
+                  (onClick)="submitForm()"
+                ></app-button>
               </div>
             </form>
           </div>
 
-          <div class="sm:w-3/4 sm:p-3">
-            <p class="sm:ml-12 text-xl font-medium text-black">Search Result</p>
-            <div class="border-2 border-black p-6 w-full h-full">
+          <div class="sm:w-3/4 p-3">
+            <p class="ml-12 text-2xl sm:text-white">Search Result</p>
+            <div class="border-4 border-white p-6 w-full h-full">
               <div class="flex justify-end">
-                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+                <button
+                  id="dropdownHoverButton"
+                  data-dropdown-toggle="dropdownHover"
+                  data-dropdown-trigger="hover"
                   class="text-white bg-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                  type="button">
+                  type="button"
+                >
                   Sort By
-                  <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="m1 1 4 4 4-4" />
+                  <svg
+                    class="w-2.5 h-2.5 ms-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 4 4 4-4"
+                    />
                   </svg>
                 </button>
               </div>
               <div>
-                <app-customer-table [searchResulDatas]="searchResulDatas"></app-customer-table>
+                <app-customer-table
+                  [searchResulDatas]="searchResulDatas"
+                ></app-customer-table>
               </div>
-                            <!-- Dropdown menu -->
+              <div class="flex justify-center mt-6">
+                <ul>
+                  <li
+                    *ngFor="
+                      let item of items
+                        | paginate
+                          : {
+                              itemsPerPage: itemsPerPage,
+                              currentPage: currentPage
+                            }
+                    "
+                    class="py-2"
+                  >
+                    {{ item }}
+                  </li>
+                </ul>
+                <pagination-controls
+                  (pageChange)="onPageChange($event)"
+                  [directionLinks]="false"
+                  [autoHide]="true"
+                  class="mt-4"
+                ></pagination-controls>
+              </div>
               <!-- Dropdown menu -->
-              <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+              <div
+                id="dropdownHover"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+              >
+                <ul
+                  class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                  aria-labelledby="dropdownHoverButton"
+                >
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('id', 'asc')">Ascending Customer ID</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('id', 'asc')"
+                    >
+                      Ascending Customer ID
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('id', 'desc')">Descending Customer ID</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('id', 'desc')"
+                    >
+                      Descending Customer ID
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('firstName', 'asc')">Ascending First Name</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('firstName', 'asc')"
+                    >
+                      Ascending First Name
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('firstName', 'desc')">Descending First Name</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('firstName', 'desc')"
+                    >
+                      Descending First Name
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('lastName', 'asc')">Ascending Last Name</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('lastName', 'asc')"
+                    >
+                      Ascending Last Name
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('lastName', 'desc')">Descending Last Name</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('lastName', 'desc')"
+                    >
+                      Descending Last Name
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('nationalityId', 'asc')">Ascending ID Number</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('nationalityId', 'asc')"
+                    >
+                      Ascending ID Number
+                    </button>
                   </li>
                   <li>
-                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('nationalityId', 'desc')">Descending ID Number</button>
+                    <button
+                      type="button"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap"
+                      (click)="setSort('nationalityId', 'desc')"
+                    >
+                      Descending ID Number
+                    </button>
                   </li>
                 </ul>
               </div>
-              
-
             </div>
           </div>
         </div>
@@ -138,19 +323,34 @@
   </div>
 </div>
 
-
-<app-popup *ngIf="showModal" [modalWidth]="'600px'" [modalHeight]="'300px'" [title]="'Customer not found...'"
-  (onClose)="toggleModal()">
+<app-popup
+  *ngIf="showCustomerNotFound"
+  [modalWidth]="'600px'"
+  [modalHeight]="'250px'"
+  [title]="'Customer not found...'"
+  (onClose)="closeExitModal()"
+>
   <div icon></div>
   <div content>
-    <!-- Content alanına dinamik HTML veya Angular bileşenleri ekleyebilirsiniz -->
     <div class="p-4">
       <p class="text-white flex justify-center">
         No customer was found! Would you like to create a new customer?
       </p>
-      <div class="mt-6 flex justify-center">
-        <app-button [label]="'Yes'" [type]="'secondary'" [width]="'150px'" [isDisabled]="false"
-          (onClick)="handleButtonClick()"></app-button>
+      <div class="mt-6 gap-6 flex justify-center">
+        <app-button
+          [label]="'No'"
+          [type]="'secondary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+          (onClick)="closeExitModal()"
+        ></app-button>
+        <app-button
+          [label]="'Yes'"
+          [type]="'secondary'"
+          [width]="'150px'"
+          [isDisabled]="false"
+          (onClick)="goToCustomerCreate()"
+        ></app-button>
       </div>
     </div>
   </div>
