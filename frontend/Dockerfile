@@ -12,6 +12,9 @@ RUN npm install -g @angular/cli \
 #http sunucusu ile host
 FROM nginx:alpine
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+
 COPY --from=build /app/dist/etiyafrontend/browser /usr/share/nginx/html
 EXPOSE 80
 
