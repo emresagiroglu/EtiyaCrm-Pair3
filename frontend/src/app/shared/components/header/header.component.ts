@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { GetUserByEmailResponse } from '../../models/auth/getUserByEmailResponse';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +9,22 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
+  user !: GetUserByEmailResponse | null;
+
+  constructor(private authService: AuthService, private change: ChangeDetectorRef) { }
+
+  ngOnInit(): void {
+    this.authService.getUser().subscribe((user) => {
+      this.user = user;
+      console.log(user)
+      this.change.markForCheck();
+    });
+  }
+
+
+
+
 
 }
