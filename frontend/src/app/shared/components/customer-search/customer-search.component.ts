@@ -121,9 +121,6 @@ export class CustomerSearchComponent implements OnInit{
   }
 
   handleButtonClick() {
-      // Navigate to the 'Demographic Information' page
-      this.router.navigate(['']);
-      //Şu an anasayfaya yönlendiriyor. Demografic page yapıldığında oraya yönlendirilecek.
-      //this.router.navigate(['/demographic-information']);
+      this.searchForm.reset()
   }
 }

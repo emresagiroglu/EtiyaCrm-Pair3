@@ -4,6 +4,7 @@ import com.etiya.customerservice.dto.city.CityRequestDto;
 import com.etiya.customerservice.dto.city.CityResponseDto;
 import com.etiya.customerservice.entity.City;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface CityMapper {
 
     CityMapper INSTANCE = Mappers.getMapper(CityMapper.class);
     City getCityFromCityRequestDto(CityRequestDto cityDto);
+    @Mapping(target = "cityId", source = "id")
     CityResponseDto getCityResponseDtoFromCity(City city);
     List<CityResponseDto> getAllCityResponseDtoFromCityDto(List<City> cities);
 }

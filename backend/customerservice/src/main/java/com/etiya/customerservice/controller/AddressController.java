@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/customers/addresses")
+@CrossOrigin()
 public class AddressController {
 
     private final AddressService addressService;
@@ -22,9 +23,14 @@ public class AddressController {
     {
         return ResponseEntity.ok(addressService.getAll());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<GetAddressResponseDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(addressService.getById(id));
+    }
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<ListAddressResponseDto>> getAllByCustomerId(@PathVariable Long customerId){
+        return ResponseEntity.ok(addressService.getAllByCustomerId(customerId));
     }
     @PostMapping
     public ResponseEntity<CreateAddressResponseDto> createAddress(@RequestBody @Valid CreateAddressRequestDto addressDto)

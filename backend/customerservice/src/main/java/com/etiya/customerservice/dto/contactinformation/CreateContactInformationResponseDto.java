@@ -15,7 +15,6 @@ import java.util.Date;
 public class CreateContactInformationResponseDto {
     private Long id;
     private Long customerId;
-    private String contactName;
     private String email;
     private String homePhone;
     private String mobilePhone;

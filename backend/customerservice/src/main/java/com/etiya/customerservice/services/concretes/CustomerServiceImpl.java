@@ -1,6 +1,5 @@
 package com.etiya.customerservice.services.concretes;
 
-import com.etiya.customerservice.core.exception.type.BusinessException;
 import com.etiya.customerservice.dto.corporatecustomer.*;
 import com.etiya.customerservice.dto.customer.GetCustomerResponseDto;
 import com.etiya.customerservice.dto.individualcustomer.*;
@@ -17,6 +16,7 @@ import com.etiya.customerservice.repositories.CustomerRepository;
 import com.etiya.customerservice.repositories.IndividualCustomerRepository;
 import com.etiya.customerservice.rule.CustomerBusinessRules;
 import com.etiya.customerservice.services.abstracts.CustomerService;
+import io.github.emresagiroglu.exception.type.BusinessException;
 import io.github.emresagiroglu.kafka.events.customer.CustomerDeletedEvent;
 import io.github.emresagiroglu.kafka.events.customer.CustomerUpdatedEvent;
 import lombok.RequiredArgsConstructor;

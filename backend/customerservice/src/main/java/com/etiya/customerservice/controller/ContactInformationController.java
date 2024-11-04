@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/customers/contactinformations")
+@CrossOrigin()
 public class ContactInformationController {
     private final ContactInformationService contactInformationService;
 

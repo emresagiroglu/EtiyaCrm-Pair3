@@ -1,6 +1,6 @@
 package com.etiya.customerservice.services.concretes;
 
-import com.etiya.customerservice.core.exception.type.BusinessException;
+
 import com.etiya.customerservice.dto.billingaccount.*;
 import com.etiya.customerservice.dto.individualcustomer.GetIndividualCustomerResponseDto;
 import com.etiya.customerservice.entity.BillingAccount;
@@ -9,6 +9,7 @@ import com.etiya.customerservice.mapper.BillingAccountMapper;
 import com.etiya.customerservice.repositories.BillingAccountRepository;
 import com.etiya.customerservice.services.abstracts.BillingAccountService;
 import com.etiya.customerservice.services.abstracts.CustomerService;
+import io.github.emresagiroglu.exception.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import io.github.emresagiroglu.kafka.events.billingaccount.BillingAccountCreatedEvent;
 import org.springframework.stereotype.Service;

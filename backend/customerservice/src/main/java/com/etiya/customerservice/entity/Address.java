@@ -34,7 +34,7 @@ public class Address extends BaseEntity {
     @Column(name = "STREET")
     private String street;
     @Column(name = "HOUSE_NUMBER")
-    private Long houseNumber;
+    private String houseNumber;
     @Column(name = "IS_ACTIVE")
     private Boolean isActive;
 

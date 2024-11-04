@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/customers/neighbourhoods")
+@CrossOrigin()
 public class NeighbourhoodController {
     private final NeighbourhoodService neighbourhoodService;
 

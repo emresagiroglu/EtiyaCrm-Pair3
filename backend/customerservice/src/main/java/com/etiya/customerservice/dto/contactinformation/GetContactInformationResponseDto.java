@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class GetContactInformationResponseDto {
     private Long id;
     private Long customerId;
-    private String contactName;
     private String email;
     private String homePhone;
     private String mobilePhone;

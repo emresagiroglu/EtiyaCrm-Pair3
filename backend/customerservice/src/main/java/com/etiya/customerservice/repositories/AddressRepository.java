@@ -1,6 +1,7 @@
 package com.etiya.customerservice.repositories;
 
 import com.etiya.customerservice.entity.Address;
+import com.etiya.customerservice.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,5 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
     Optional<Address> findByIdAndIsActiveTrue(Long id);
     Optional<List<Address>> findAllByIsActiveTrue();
+    Optional<List<Address>> findAllByCustomerIdAndIsActiveTrue(Customer customer);
 }

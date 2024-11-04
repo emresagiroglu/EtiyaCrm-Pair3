@@ -10,5 +10,8 @@ public interface AddressService {
     GetAddressResponseDto getById(Long id);
     CreateAddressResponseDto save(CreateAddressRequestDto addressDto);
     UpdateAddressResponseDto update(UpdateAddressRequestDto addressDto, Long id);
+    List<ListAddressResponseDto> getAllByCustomerId(Long customerId);
     void delete(Long id);
+
+
 }

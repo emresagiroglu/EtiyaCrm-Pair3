@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class UpdateContactInformationRequestDto {
     private Long customerId;
-    private String contactName;
     private String email;
     private String homePhone;
     private String mobilePhone;

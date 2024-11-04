@@ -1,9 +1,9 @@
 package com.etiya.customerservice.rule;
 
-import com.etiya.customerservice.core.exception.type.BusinessException;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.repositories.CorporateCustomerRepository;
 import com.etiya.customerservice.repositories.IndividualCustomerRepository;
+import io.github.emresagiroglu.exception.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

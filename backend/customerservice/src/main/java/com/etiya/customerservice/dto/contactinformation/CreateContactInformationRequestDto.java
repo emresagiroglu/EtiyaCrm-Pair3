@@ -17,8 +17,6 @@ public class CreateContactInformationRequestDto {
     @NotNull
     private Long customerId;
     @NotEmpty
-    private String contactName;
-    @NotEmpty
     private String email;
     private String homePhone;
     @NotNull
