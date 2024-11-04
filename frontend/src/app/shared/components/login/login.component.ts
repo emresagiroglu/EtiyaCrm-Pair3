@@ -23,6 +23,7 @@ import { TokenResponse } from '../../models/auth/tokenResponse';
 })
 export class LoginComponent implements OnInit {
   passwordVisible: boolean = false;
+  errorMessage: string = '';
 
   form!: FormGroup;
 
@@ -63,6 +64,10 @@ export class LoginComponent implements OnInit {
         //this.router.navigate(['/customer-search']);
         window.location.href = '/customer-search';
       },
+      error:(err) => {
+        this.errorMessage = "Wrong username or password. Please try again!"
+        this.form.reset();
+      }
     });
   }
 }
