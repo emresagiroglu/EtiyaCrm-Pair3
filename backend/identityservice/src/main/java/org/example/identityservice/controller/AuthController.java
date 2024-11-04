@@ -2,10 +2,7 @@ package org.example.identityservice.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.identityservice.dto.LoginRequestDto;
-import org.example.identityservice.dto.RegisterRequestDto;
-import org.example.identityservice.dto.RegisterResponseDto;
-import org.example.identityservice.dto.TokenResponse;
+import org.example.identityservice.dto.*;
 import org.example.identityservice.service.auth.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,4 +25,10 @@ public class AuthController {
     public ResponseEntity<RegisterResponseDto> register(@Valid @RequestBody RegisterRequestDto registerRequest){
         return ResponseEntity.ok(authService.register(registerRequest));
     }
+
+    @PostMapping("/getByEmail")
+    public ResponseEntity<GetUserByEmailResponse> getByEmail(@RequestBody GetUserByEmailRequest request){
+        return ResponseEntity.ok(authService.getUserByEmail(request));
+    }
+
 }
