@@ -12,8 +12,6 @@ RUN npm install -g @angular/cli \
 #http sunucusu ile host
 FROM nginx:alpine
 
-# Nginx konfigürasyon dosyasını kopyala
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+COPY --from=build /app/dist/etiyafrontend/browser /usr/share/nginx/html
 EXPOSE 80
+

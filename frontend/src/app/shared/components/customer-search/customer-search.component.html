@@ -4,39 +4,70 @@
       <!-- İlk sekmenin içeriği -->
       <div tabContent0>
         <div class="w-full sm:flex p-6">
-            <div class="sm:w-1/4 bg-gray-500 p-3">
-              <form [formGroup]="searchForm" (submit)="submitForm()">
+          <div class="sm:w-1/4 bg-gray-500 p-3">
+            <form [formGroup]="searchForm" (submit)="submitForm()">
               <label for="floatingInput" class="font-bold text-md text-white">NAT ID Number</label>
               <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="nationalityId"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div
+                *ngIf="searchForm.get('nationalityId')?.hasError('onlyNumeric') && searchForm.get('nationalityId')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only numeric values!
+              </div>
 
               <label for="floatingInput" class="font-bold text-md text-white">Customer ID</label>
               <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="id"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div *ngIf="searchForm.get('id')?.hasError('onlyNumeric') && searchForm.get('id')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only numeric values!
+              </div>
 
               <label for="floatingInput" class="font-bold text-md text-white">Account Number</label>
               <input type="text" class="form-control" id="floatingInput" placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
                 formControlName="accountNumber"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div
+                *ngIf="searchForm.get('accountNumber')?.hasError('onlyNumeric') && searchForm.get('accountNumber')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only numeric values!
+              </div>
 
               <label for="floatingInput" class="font-bold text-md text-white">GSM Number</label>
               <input type="text" class="form-control" id="floatingInput" placeholder="+90_ _ _ _ _ _ _ _ _ _"
                 formControlName="mobilePhone"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div
+                *ngIf="searchForm.get('mobilePhone')?.hasError('onlyNumeric') && searchForm.get('mobilePhone')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only numeric values!
+              </div>
 
               <label for="floatingInput" class="font-bold text-md text-white">First Name</label>
               <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="firstName"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
-
+              <div *ngIf="searchForm.get('firstName')?.hasError('onlyText') && searchForm.get('firstName')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only text values!
+              </div>
               <label for="floatingInput" class="font-bold text-md text-white">Middle Name</label>
               <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="middleName"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div *ngIf="searchForm.get('middleName')?.hasError('onlyText') && searchForm.get('middleName')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only text values!
+              </div>
 
               <label for="floatingInput" class="font-bold text-md text-white">Last Name</label>
               <input type="text" class="form-control" id="floatingInput" placeholder=" " formControlName="lastName"
                 class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <div *ngIf="searchForm.get('lastName')?.hasError('onlyText') && searchForm.get('lastName')?.touched"
+                class="px-2 my-0 text-red-600 font-bold">
+                Only text values!
+              </div>
+
               <div class="flex justify-around gap-5 my-7">
                 <app-button [label]="'Cancel'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
                   (onClick)="handleButtonClick()"></app-button>
@@ -44,7 +75,7 @@
                   (onClick)="submitForm()"></app-button>
               </div>
             </form>
-            </div>
+          </div>
 
           <div class="sm:w-3/4 sm:p-3">
             <p class="sm:ml-12 text-xl font-medium text-black">Search Result</p>
@@ -62,32 +93,40 @@
                 </button>
               </div>
               <div>
-                <app-customer-table [searchResulDatas] = "searchResulDatas"></app-customer-table>
+                <app-customer-table [searchResulDatas]="searchResulDatas"></app-customer-table>
               </div>
-
+                            <!-- Dropdown menu -->
               <!-- Dropdown menu -->
-              <div id="dropdownHover"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                   <li>
-                    <a href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('id', 'asc')">Ascending Customer ID</button>
                   </li>
                   <li>
-                    <a href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('id', 'desc')">Descending Customer ID</button>
                   </li>
                   <li>
-                    <a href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('firstName', 'asc')">Ascending First Name</button>
                   </li>
                   <li>
-                    <a href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                      out</a>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('firstName', 'desc')">Descending First Name</button>
+                  </li>
+                  <li>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('lastName', 'asc')">Ascending Last Name</button>
+                  </li>
+                  <li>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('lastName', 'desc')">Descending Last Name</button>
+                  </li>
+                  <li>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('nationalityId', 'asc')">Ascending ID Number</button>
+                  </li>
+                  <li>
+                    <button type="button" class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white whitespace-nowrap" (click)="setSort('nationalityId', 'desc')">Descending ID Number</button>
                   </li>
                 </ul>
               </div>
+              
+
             </div>
           </div>
         </div>

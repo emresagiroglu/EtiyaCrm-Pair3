@@ -5,10 +5,11 @@ import { ButtonComponent } from '../button/button.component';
 import { CustomerTableComponent } from '../customer-table/customer-table.component';
 import { PopupComponent } from '../popup/popup.component';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomerSearchService } from '../../services/customer-search.service';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { CustomerSearchService } from '../../services/customer-service/customer-search.service';
 import { CustomerSearchResponse } from '../../models/customer/customerSearchResponse';
 import { CustomerSearchRequest } from '../../models/customer/customerSearchRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-search',
@@ -29,6 +30,8 @@ import { CustomerSearchRequest } from '../../models/customer/customerSearchReque
 export class CustomerSearchComponent implements OnInit{
   tabs: string[] = ['B2C', 'B2B'];
 
+  showModal: boolean = false;
+
   searchResulDatas! : CustomerSearchResponse[];
 
   searchForm !: FormGroup;
@@ -37,28 +40,39 @@ export class CustomerSearchComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerSearchService: CustomerSearchService
+    private customerSearchService: CustomerSearchService,
+    private router: Router
   ){}
 
 
   ngOnInit(): void {
     this.buildForm();
+    this.submitForm();
   }
 
   buildForm(){
     this.searchForm = this.formBuilder.group({
-      nationalityId: [''],
-      id: [''],
-      accountNumber: [''],
-      mobilePhone: [''],
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
+      nationalityId: ['', [this.numericValidator()]],
+      id: ['', [this.numericValidator()]],
+      accountNumber: ['', [this.numericValidator()]],
+      mobilePhone: ['', [this.numericValidator()]],
+      firstName: ['', [this.onlyTextValidator()]],
+      middleName: ['', [this.onlyTextValidator()]],
+      lastName: ['', [this.onlyTextValidator()]],
       orderNumber: [''],
       sortField: [''],
       sortOrder: ['']
     });
   }
+
+  setSort(field: string, order: 'asc' | 'desc') {
+    this.searchForm.patchValue({
+        sortField: field,
+        sortOrder: order
+    });
+    this.submitForm();
+}
+
 
   submitForm(){
     this.searchForm.markAllAsTouched();
@@ -71,20 +85,45 @@ export class CustomerSearchComponent implements OnInit{
     this.customerSearchService.searchCustomer(customerSearchRequest).subscribe({
       next: (response: CustomerSearchResponse[]) => {
         this.searchResulDatas = response;
-      },
+
+        if (response.length === 0) {
+          this.showModal = true;
+        }
+      }
     });
   }
 
+  onlyTextValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isTextOnly = /^[a-zA-Z\s]*$/.test(control.value);
+      return isTextOnly ? null : { onlyText: true };
+    };
+  } 
+
+  numericValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isNumeric = /^[0-9]*$/.test(control.value);
+      return isNumeric ? null : { onlyNumeric: true };
+    };
+  }
 
   setActiveTab(index: number) {
     this.activeTab = index;
   }
 
-  showModal: boolean = false;
-
   toggleModal() {
     this.showModal = !this.showModal;
+
+    if (!this.showModal) {
+      // Reset the search results when closing the modal
+      this.searchResulDatas = [];
+    }
   }
 
-  handleButtonClick() {}
+  handleButtonClick() {
+      // Navigate to the 'Demographic Information' page
+      this.router.navigate(['']);
+      //Şu an anasayfaya yönlendiriyor. Demografic page yapıldığında oraya yönlendirilecek.
+      //this.router.navigate(['/demographic-information']);
+  }
 }

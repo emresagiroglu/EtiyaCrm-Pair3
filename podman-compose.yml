@@ -188,6 +188,12 @@ services:
     networks:
       - common
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    networks:
+      - common
 volumes:
   mysql_data:
   postgres_data:

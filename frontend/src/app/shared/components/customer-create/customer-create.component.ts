@@ -1,3 +1,7 @@
+import { CustomerIdService } from './../../services/customer-service/customer-id.service';
+import { CustomerCreateService } from './../../../shared/services/customer-service/customer-create.service';
+import { routes } from './../../../app.routes';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -10,6 +14,8 @@ import {
 import { RadioButtonComponent } from '../radio-button/radio-button.component';
 import { ButtonComponent } from '../button/button.component';
 import { PopupComponent } from '../popup/popup.component';
+import { CustomerCreateRequest } from '../../models/customer/customerCreateRequest';
+
 
 @Component({
   selector: 'app-customer-create',
@@ -30,7 +36,8 @@ export class CustomerCreateComponent {
   selectedOption: string = 'all'; // Varsayılan olarak tüm inputlar açık
   maxDate: string; // Maksimum seçilebilir tarih
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router,
+     private customerCreateService : CustomerCreateService, private customerIdService : CustomerIdService) {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -42,6 +49,7 @@ export class CustomerCreateComponent {
       gender: ['', Validators.required],
       fatherName: [''],
       motherName: [''],
+      nationality:[true],
       nationalityId: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
@@ -57,7 +65,17 @@ export class CustomerCreateComponent {
       alert('Please fill out all required fields correctly.');
       return;
     }
-    console.log('Form Submitted:', this.customerForm.value);
+    const customerCreateRequest: CustomerCreateRequest = this.customerForm.value;
+  
+    this.customerCreateService.createCustomer(customerCreateRequest).subscribe({
+      next: (response) => {
+        this.customerIdService.customerId = response.id;
+        this.router.navigate(['/address-info']);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   showModal: boolean = false;

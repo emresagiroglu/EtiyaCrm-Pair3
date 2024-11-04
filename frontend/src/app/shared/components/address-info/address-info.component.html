@@ -24,9 +24,8 @@
                   </app-radio-button>
                 </div>
                 <div class="mt-1">
-                  {{ address.neighborhood }}, {{ address.street }} ,
-                  {{ address.houseFlat }}, {{ address.district }},
-                  {{ address.city }}, ({{ address.description }})
+                  {{ address.neighbourhoodId }}, {{ address.street }} ,
+                  {{ address.houseNumber }}
                 </div>
               </div>
             </div>
@@ -61,6 +60,7 @@
             [type]="'primary'"
             [width]="'150px'"
             [isDisabled]="false"
+            (onClick)="nextComponent()"
           ></app-button>
         </div>
       </div>
@@ -96,10 +96,10 @@
           (click)="closeModal()"
         ></app-button>
         <app-button
-          [label]="'Save'"
+          [label]="'Confirm'"
           [type]="'primary'"
           [width]="'150px'"
-          (click)="closeModal()"
+          (click)="goToSearch()"
         ></app-button>
       </div>
     </form>
@@ -114,7 +114,9 @@
   (onClose)="closeModal()"
 >
   <div content>
-    <form>
+    <form
+    [formGroup]="addressForm"
+    >
       <div class="grid gap-6 md:grid-cols-2 p-6">
         <div>
           <label for="city" class="block mb-2 text-sm font-medium text-white"
@@ -124,9 +126,8 @@
             type="text"
             id="city"
             name="city"
-            [(ngModel)]="newAddress.city"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            required
+            formControlName="city"
           />
         </div>
         <div>
@@ -139,9 +140,8 @@
             type="text"
             id="district"
             name="district"
-            [(ngModel)]="newAddress.district"
+            formControlName="district"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            required
           />
         </div>
         <div>
@@ -152,9 +152,8 @@
             type="text"
             id="street"
             name="street"
-            [(ngModel)]="newAddress.street"
+            formControlName="street"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            required
           />
         </div>
         <div>
@@ -167,24 +166,22 @@
             type="text"
             id="houseFlat"
             name="houseFlat"
-            [(ngModel)]="newAddress.houseFlat"
+            formControlName="houseFlat"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            required
           />
         </div>
         <div>
           <label
-            for="neighborhood"
+            for="neighbourhood"
             class="block mb-2 text-sm font-medium text-white"
-            >Neighborhood *</label
+            >Neighbourhood *</label
           >
           <input
             type="text"
-            id="neighborhood"
-            name="neighborhood"
-            [(ngModel)]="newAddress.neighborhood"
+            id="neighbourhood"
+            name="neighbourhood"
+            formControlName="neighbourhood"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            required
           />
         </div>
       </div>
@@ -198,9 +195,8 @@
           type="text"
           id="description"
           name="description"
-          [(ngModel)]="newAddress.description"
+          formControlName="description"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
-          required
         />
       </div>
       <div class="sm:flex sm:gap-8 justify-around">
