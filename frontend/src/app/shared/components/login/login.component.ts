@@ -10,8 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
+import { AuthService } from '../../services/auth-service/auth.service';
+import { StorageService } from '../../services/storage-service/storage.service';
 import { TokenResponse } from '../../models/auth/tokenResponse';
 
 @Component({

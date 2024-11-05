@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { StorageService } from '../services/storage.service';
+import { StorageService } from '../services/storage-service/storage.service';
 import { inject } from '@angular/core';
 import { catchError, finalize } from 'rxjs';
 

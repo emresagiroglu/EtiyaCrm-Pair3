@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { GetUserByEmailResponse } from '../../models/auth/getUserByEmailResponse';
-import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
+import { AuthService } from '../../services/auth-service/auth.service';
+import { StorageService } from '../../services/storage-service/storage.service';
 import { Router } from '@angular/router';
 
 @Component({

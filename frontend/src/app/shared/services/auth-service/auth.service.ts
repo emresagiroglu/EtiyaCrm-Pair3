@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { LoginRequest } from '../models/auth/loginRequest';
-import { TokenResponse } from '../models/auth/tokenResponse';
+import { LoginRequest } from '../../models/auth/loginRequest';
+import { TokenResponse } from '../../models/auth/tokenResponse';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
-import { GetUserByEmailRequest } from '../models/auth/getUserByEmailRequest';
-import { GetUserByEmailResponse } from '../models/auth/getUserByEmailResponse';
+import { GetUserByEmailRequest } from '../../models/auth/getUserByEmailRequest';
+import { GetUserByEmailResponse } from '../../models/auth/getUserByEmailResponse';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
