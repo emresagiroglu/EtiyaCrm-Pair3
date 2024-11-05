@@ -1,7 +1,6 @@
-export interface CustomerCncRequest
+export interface CncInfoCreateRequest
 {
         customerId: number,
-        contactName: string,
         email: string,
         homePhone:string,
         mobilePhone:string,

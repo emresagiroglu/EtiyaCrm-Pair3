@@ -1,14 +1,14 @@
-import { NeighbourhoodRequest } from './../../models/customer/address/NeighbourhoodRequest';
+import { NeighbourhoodRequest } from '../../models/address/NeighbourhoodRequest';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CityRequest } from '../../models/customer/address/CityRequest';
-import { CityResponse } from '../../models/customer/address/CityResponse';
-import { DistrictRequest } from '../../models/customer/address/DistrictRequest';
-import { DistrictResponse } from '../../models/customer/address/DistrictResponse';
-import { NeighbourhoodResponse } from '../../models/customer/address/NeighbourhoodResponse';
-import { AddressRequest } from '../../models/customer/address/AddressRequest';
-import { AddressResponse } from '../../models/customer/address/AddressResponse';
+import { CityRequest } from '../../models/address/CityRequest';
+import { CityResponse } from '../../models/address/CityResponse';
+import { DistrictRequest } from '../../models/address/DistrictRequest';
+import { DistrictResponse } from '../../models/address/DistrictResponse';
+import { NeighbourhoodResponse } from '../../models/address/NeighbourhoodResponse';
+import { AddressRequest } from '../../models/address/AddressRequest';
+import { AddressResponse } from '../../models/address/AddressResponse';
 
 @Injectable({
   providedIn: 'root'

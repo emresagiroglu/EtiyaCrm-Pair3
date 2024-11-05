@@ -1,4 +1,4 @@
-export interface CustomerCncInfoResponse
+export interface CustomerGetByIdResponse
 {
         id: number;
         firstName: string;
