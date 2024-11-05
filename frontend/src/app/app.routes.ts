@@ -11,18 +11,19 @@ import { SaleSelectionComponent } from './shared/components/sale-selection/sale-
 import { CustomerUpdateComponent } from './shared/components/customer-update/customer-update.component';
 import { CustomerInfoComponent } from './shared/components/customer-info/customer-info.component';
 import {CustomerCreatePageComponent} from './shared/pages/customer-create-page/customer-create-page.component'
+import { tokenGuard } from './shared/guards/token.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
-  { path: 'customer-search', component: CustomerSearchComponent },
-  { path: 'customer-create', component: CustomerCreateComponent },
-  { path: 'customer-account', component: CustomerAccountComponent },
-  { path: 'address-info', component: AddressInfoComponent },
-  { path: 'sale-selection', component: SaleSelectionComponent },
-  { path: 'customer-update', component: CustomerUpdateComponent },
-  {path: 'customer-info/:id', component : CustomerInfoComponent},
-  {path: 'customer-create-page', component: CustomerCreatePageComponent}
+  { path: 'customer-search', canActivate: [tokenGuard], component: CustomerSearchComponent },
+  { path: 'customer-create', canActivate: [tokenGuard], component: CustomerCreateComponent },
+  { path: 'customer-account', canActivate: [tokenGuard], component: CustomerAccountComponent },
+  { path: 'address-info', canActivate: [tokenGuard], component: AddressInfoComponent },
+  { path: 'sale-selection', canActivate: [tokenGuard], component: SaleSelectionComponent },
+  { path: 'customer-update', canActivate: [tokenGuard], component: CustomerUpdateComponent },
+  {path: 'customer-info/:id', canActivate: [tokenGuard], component : CustomerInfoComponent},
+  {path: 'customer-create-page', canActivate: [tokenGuard], component: CustomerCreatePageComponent}
 ];
 
 @NgModule({

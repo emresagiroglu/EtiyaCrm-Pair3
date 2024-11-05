@@ -30,6 +30,7 @@ export class CustomerSearchService {
     if (customerSearchRequest.accountNumber) params = params.set('accountNumber', customerSearchRequest.accountNumber);
     if (customerSearchRequest.mobilePhone) params = params.set('mobilePhone', customerSearchRequest.mobilePhone);
     if (customerSearchRequest.firstName) params = params.set('firstName', customerSearchRequest.firstName);
+    if (customerSearchRequest.middleName) params = params.set('middleName', customerSearchRequest.middleName);
     if (customerSearchRequest.lastName) params = params.set('lastName', customerSearchRequest.lastName);
     if (customerSearchRequest.orderNumber) params = params.set('orderNumber', customerSearchRequest.orderNumber);
     if (customerSearchRequest.sortField) params = params.set('sortField', customerSearchRequest.sortField);

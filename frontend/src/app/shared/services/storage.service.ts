@@ -8,7 +8,7 @@ export class StorageService {
   constructor() {}
 
   get(key: string) {
-    return localStorage.getItem(key);
+    return localStorage.getItem('token') as string;
   }
   set(key: string, obj: any) {
     localStorage.setItem(key, obj);
