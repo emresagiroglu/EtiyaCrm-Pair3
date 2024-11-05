@@ -111,4 +111,41 @@
       </form>
     </div>
   </div>
+  <app-popup
+  *ngIf="showModal" 
+  [modalWidth]="'733px'"
+  [modalHeight]="'343px'"
+  [title]="''"
+  (onClose)="closeModal()"
+>
+  <div content>
+    <form>
+      <div class="sm:flex sm:gap-8 justify-around items-center">
+        <div class="flex flex-col items-center">
+          <svg class="w-[80px] h-[80px] text-red-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" /> 
+            <path fill="#FFFFFF" d="M11 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm1 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/> 
+          </svg>
+            <div>
+                <p class="text-2xl text-white mt-10 text-center">Please fill all the mandatory fields!</p>
+           
+                
+            </div>  
+        </div>
+    </div>
+      <div class="sm:flex sm:gap-8 mt-20 justify-around">
+        <app-button
+          [label]="'OK'"
+          [type]="'secondary'"
+          [width]="'276px'"
+          [style.height]="'63px'"
+          [style.fontSize]="'25px'"
+          [isDisabled]="false"
+          (click)="closeModal()"
+        ></app-button>
+       
+      </div>
+    </form>
+  </div>
+</app-popup>
 </main>
