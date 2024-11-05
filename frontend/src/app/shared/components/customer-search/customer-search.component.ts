@@ -40,7 +40,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class CustomerSearchComponent implements OnInit {
   tabs: string[] = ['B2C', 'B2B'];
 
-  showModal: boolean = false;
   showCustomerNotFound: boolean = false;
 
   searchResulDatas!: CustomerSearchResponse[];
@@ -102,9 +101,9 @@ export class CustomerSearchComponent implements OnInit {
     this.customerSearchService.searchCustomer(customerSearchRequest).subscribe({
       next: (response: CustomerSearchResponse[]) => {
         this.searchResulDatas = response;
-
+        
         if (response.length === 0) {
-          this.showModal = true;
+          this.showCustomerNotFound= true;
         }
       },
     });
@@ -128,17 +127,8 @@ export class CustomerSearchComponent implements OnInit {
     this.activeTab = index;
   }
 
-  toggleModal() {
-    this.showModal = !this.showModal;
-
-    if (!this.showModal) {
-      // Reset the search results when closing the modal
-      this.searchResulDatas = [];
-    }
-  }
-
   handleButtonClick() {
-    this.searchForm.reset();
+    this.buildForm();
   }
 
   goToCustomerCreate() {
