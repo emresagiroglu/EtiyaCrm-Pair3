@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.searchservice.dto.SearchResponse;
 import org.example.searchservice.service.FilterService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +21,9 @@ public class SearchCustomerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<SearchResponse> search(
+    public Page<SearchResponse> search(
+            @RequestParam(defaultValue = "0") int page, // Sayfa numarası (0'dan başlar)
+            @RequestParam(defaultValue = "10") int sizePerPage, // Sayfa başına öğe sayısı
             @RequestParam(required = false) String nationalityId,
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String accountNumber,
@@ -29,8 +34,12 @@ public class SearchCustomerController {
             @RequestParam(required = false) String sortField,
             @RequestParam(required = false) String sortOrder
     ) {
+        // Pageable parametresi ile pagination bilgisini oluşturun
+        Pageable pageable = PageRequest.of(page, sizePerPage);
+
+        // Servis katmanına pageable'ı gönderin
         return this.filterService.search(
-                nationalityId, id, accountNumber, mobilePhone, firstName,middleName, lastName , sortField, sortOrder
+                nationalityId, id, accountNumber, mobilePhone, firstName, middleName, lastName, sortField, sortOrder, pageable
         );
     }
 

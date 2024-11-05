@@ -10,6 +10,7 @@ import { CustomerSearchRequest } from '../../models/customer/customerSearchReque
 })
 export class CustomerSearchService {
 
+  public currentPageService : number = 1;
   constructor(private httpClient: HttpClient) { }
 
   private readonly controllerUrl= 'http://localhost:8085/api/search'  //sonradan apigateway e bağlanacak!
@@ -21,10 +22,12 @@ export class CustomerSearchService {
     return this.httpClient.get<CustomerListResponse[]>(url);
   }
 
-  searchCustomer(customerSearchRequest: CustomerSearchRequest): Observable<any> {
+  searchCustomer(customerSearchRequest: CustomerSearchRequest,pageNumber : number): Observable<any> {
     let params = new HttpParams();
 
-
+    params = params.set('page', pageNumber.toString())
+    params = params.set('sizePerPage', '12');
+    
     if (customerSearchRequest.nationalityId) params = params.set('nationalityId', customerSearchRequest.nationalityId);
     if (customerSearchRequest.id) params = params.set('id', customerSearchRequest.id);
     if (customerSearchRequest.accountNumber) params = params.set('accountNumber', customerSearchRequest.accountNumber);
@@ -36,7 +39,9 @@ export class CustomerSearchService {
     if (customerSearchRequest.sortField) params = params.set('sortField', customerSearchRequest.sortField);
     if (customerSearchRequest.sortOrder) params = params.set('sortOrder', customerSearchRequest.sortOrder);
 
-    return this.httpClient.get<CustomerSearchResponse[]>(this.controllerUrl, { params });
+    
+
+    return this.httpClient.get<any>(this.controllerUrl, { params });
   }
 
 
