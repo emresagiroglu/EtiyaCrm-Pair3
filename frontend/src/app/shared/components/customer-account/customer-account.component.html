@@ -1,77 +1,79 @@
 <div class="w-full p-6">
   <div class="flex justify-center p-4">Progresssbarr !!1</div>
   <p class="sm:ml-12 text-xl font-medium text-white">Customer Accounts</p>
-  <div class="pl-6 mt-2">
-    <app-button
-      [label]="'Create New Account'"
-      [type]="'primary'"
-      [width]="'200px'"
-      (click)="handleClick()"
-    ></app-button>
-  </div>
-  <div class="border-4 bg-white border-white mt-4 p-6 w-full h-full">
-    <div class="w-full flex gap-3">
-      <div class="w-11/12">
-        <app-account-table></app-account-table>
-      </div>
-      <div class="w-1/12 h-10 mt-8 bg-blue-300 rounded-full flex gap-2">
-        <svg
-          (click)="openModal()"
-          class="ml-6 cursor-pointer mt-1 text-gray-800 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
-          />
-        </svg>
-        <svg
-          class="cursor-pointer h-6 mt-2 text-gray-800 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"
-          />
-        </svg>
-      </div>
+  <div class="border-2 border-white p-6 mt-4">
+    <div class="pl-6 mt-2">
+      <app-button
+        [label]="'Create New Account'"
+        [type]="'primary'"
+        [width]="'200px'"
+        (click)="handleClick()"
+      ></app-button>
     </div>
-    <div class="w-full sm:flex sm:gap-12 justify-center">
-      <app-button
-        [label]="'Start New Sale'"
-        [type]="'primary'"
-        [width]="'200px'"
-        (click)="handleClick()"
-      ></app-button>
-      <p>Address modal burda !!!! --->>></p>
-      <app-button
-        [label]="'Service Address Change'"
-        [type]="'primary'"
-        [width]="'250px'"
-        (click)="openAddressModal()"
-      ></app-button>
-      <app-button
-        [label]="'Transfer'"
-        [type]="'primary'"
-        [width]="'200px'"
-        (click)="handleClick()"
-      ></app-button>
+    <div class="border-4 bg-white border-white mt-4 p-6 w-full h-full">
+      <div class="w-full flex gap-3">
+        <div class="w-11/12">
+          <app-account-table></app-account-table>
+        </div>
+        <div class="w-1/12 h-10 mt-8 bg-blue-300 rounded-full flex gap-2">
+          <svg
+            (click)="openModal()"
+            class="ml-6 cursor-pointer mt-1 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+            />
+          </svg>
+          <svg
+            class="cursor-pointer h-6 mt-2 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="w-full sm:flex sm:gap-12 justify-center">
+        <app-button
+          [label]="'Start New Sale'"
+          [type]="'primary'"
+          [width]="'200px'"
+          (click)="handleClick()"
+        ></app-button>
+        <p>Address modal burda !!!! --->>></p>
+        <app-button
+          [label]="'Service Address Change'"
+          [type]="'primary'"
+          [width]="'250px'"
+          (click)="openAddressModal()"
+        ></app-button>
+        <app-button
+          [label]="'Transfer'"
+          [type]="'primary'"
+          [width]="'200px'"
+          (click)="handleClick()"
+        ></app-button>
+      </div>
     </div>
   </div>
 </div>

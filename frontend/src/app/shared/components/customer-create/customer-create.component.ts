@@ -15,7 +15,6 @@ import { PopupComponent } from '../popup/popup.component';
 import { CustomerCreateRequest } from '../../models/customer/customerCreateRequest';
 import { CustomerService } from '../../services/customer-service/customer.service';
 
-
 @Component({
   selector: 'app-customer-create',
   standalone: true,
@@ -34,10 +33,12 @@ export class CustomerCreateComponent implements OnInit {
   customerForm: FormGroup; // Reactive Form için FormGroup
   selectedOption: string = 'all'; // Varsayılan olarak tüm inputlar açık
   maxDate: string; // Maksimum seçilebilir tarih
-
-
+  showExitPopup: boolean = false;
+  showModal: boolean = false;
+  
   constructor(private fb: FormBuilder, private router: Router,
      private customerService : CustomerService) {
+
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -49,7 +50,7 @@ export class CustomerCreateComponent implements OnInit {
       gender: ['', Validators.required],
       fatherName: [''],
       motherName: [''],
-      nationality:[true],
+      nationality: [true],
       nationalityId: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
@@ -74,6 +75,7 @@ export class CustomerCreateComponent implements OnInit {
       alert('Please fill out all required fields correctly.');
       return;
     }
+
   
     // Kaydedilmiş formu al
     const savedForm = this.customerService.getFormData();
@@ -120,7 +122,17 @@ export class CustomerCreateComponent implements OnInit {
     }
   }
 
-  showModal: boolean = false;
+  navigateToCustomerSearch() {
+    this.router.navigate(['/customer-search']);
+  }
+
+  showExitModal() {
+    this.showExitPopup = true;
+  }
+
+  closeExitModal() {
+    this.showExitPopup = false;
+  }
 
   toggleModal() {
     this.showModal = !this.showModal;

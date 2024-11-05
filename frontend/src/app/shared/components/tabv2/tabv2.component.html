@@ -1,0 +1,30 @@
+<div class="flex justify-center mb-4">
+  <div class="flex space-x-2">
+    <div
+      *ngFor="let tab of tabs; let i = index"
+      (click)="selectTab(i)"
+      [ngClass]="{
+        'bg-white text-black rounded-l-full rounded-r-full': i === activeTab,
+        'text-gray-500': i !== activeTab
+      }"
+      class="cursor-pointer border-r border-gray-500 p-2 font-semibold text-lg transition-all duration-300"
+    >
+      {{ tab }}
+    </div>
+  </div>
+</div>
+
+<div class="tab-content w-full">
+  <ng-container *ngIf="activeTab === 0">
+    <ng-content select="[tabContent0]"></ng-content>
+  </ng-container>
+  <ng-container *ngIf="activeTab === 1">
+    <ng-content select="[tabContent1]"></ng-content>
+  </ng-container>
+  <ng-container *ngIf="activeTab === 2">
+    <ng-content select="[tabContent2]"></ng-content>
+  </ng-container>
+  <ng-container *ngIf="activeTab === 3">
+    <ng-content select="[tabContent3]"></ng-content>
+  </ng-container>
+</div>
