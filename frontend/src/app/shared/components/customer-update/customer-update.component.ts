@@ -40,6 +40,7 @@ export class CustomerUpdateComponent implements OnInit {
   currentCustomerId! : number;
   customerId: number | null = null;  // Müşteri kimliğini tutmak için bir değişken
  // customer: CustomerU | null = null;  // Güncellenmiş müşteri bilgileri
+ showExitPopup: boolean = false;
         
   showModal: boolean = false;
         
@@ -53,6 +54,13 @@ export class CustomerUpdateComponent implements OnInit {
      
     });
     
+  }
+  showExitModal() {
+    this.showExitPopup = true;
+  }
+
+  closeExitModal() {
+    this.showExitPopup = false;
   }
 
   ngOnInit() {

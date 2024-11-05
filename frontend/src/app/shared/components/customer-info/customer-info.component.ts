@@ -19,6 +19,8 @@ import { CustomerGetByIdResponse } from '../../models/customer/customerGetByIdRe
 export class CustomerInfoComponent implements OnInit {
   showModal: boolean = false;
   customer: CustomerGetByIdResponse = {} as CustomerGetByIdResponse;
+  showSuccessModal: boolean = false;
+  showAddressModal: boolean = false;
 
   constructor(
     private router: Router,
@@ -50,6 +52,14 @@ export class CustomerInfoComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  openSuccessModal() {
+    this.showSuccessModal = true;
+  }
+
+  closeSuccessModal() {
+    this.showSuccessModal = false;
   }
 
   goToCustomerCreate() {

@@ -72,11 +72,10 @@ export class CustomerCreateComponent implements OnInit {
     // Form validasyonu
     if (this.customerForm.invalid) {
       this.customerForm.markAllAsTouched();
-      alert('Please fill out all required fields correctly.');
+      this.showModal =true;
       return;
     }
 
-  
     // Kaydedilmiş formu al
     const savedForm = this.customerService.getFormData();
     console.log(savedForm);
@@ -120,6 +119,9 @@ export class CustomerCreateComponent implements OnInit {
         }
       });
     }
+  }
+  closeModal() {
+    this.showModal = false;
   }
 
   navigateToCustomerSearch() {
