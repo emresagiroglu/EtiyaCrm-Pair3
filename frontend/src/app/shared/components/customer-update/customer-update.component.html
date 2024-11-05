@@ -153,7 +153,7 @@
   [modalWidth]="'700px'"
   [modalHeight]="'380px'"
   [title]="''"
-  (onClose)="closeModal()"
+  (onClose)="closeExitModal()"
 >
   <div content>
     <form>
@@ -178,7 +178,7 @@
           [style.height]="'63px'"
           [style.fontSize]="'25px'"
           [isDisabled]="false"
-          (click)="closeModal()"
+          (click)="closeExitModal()"
         ></app-button>
         <app-button
           [label]="'Confirm'"
