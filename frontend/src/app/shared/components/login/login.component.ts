@@ -23,6 +23,7 @@ import { TokenResponse } from '../../models/auth/tokenResponse';
 })
 export class LoginComponent implements OnInit {
   passwordVisible: boolean = false;
+  errorMessage: string = '';
 
   form!: FormGroup;
 
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible; // Parola görünürlüğünü değiştir
+    this.passwordVisible = !this.passwordVisible;
   }
 
   submitForm() {
@@ -60,8 +61,13 @@ export class LoginComponent implements OnInit {
       next: (response: TokenResponse) => {
         console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
-        this.router.navigate(['']);
+        //this.router.navigate(['/customer-search']);
+        window.location.href = '/customer-search';
       },
+      error:(err) => {
+        this.errorMessage = "Wrong username or password. Please try again!"
+        this.form.reset();
+      }
     });
   }
 }

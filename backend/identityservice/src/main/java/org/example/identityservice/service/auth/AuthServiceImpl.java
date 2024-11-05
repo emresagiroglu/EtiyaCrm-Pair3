@@ -1,16 +1,17 @@
 package org.example.identityservice.service.auth;
 import io.github.emresagiroglu.security.BaseJwtService;
-import org.example.identityservice.dto.LoginRequestDto;
-import org.example.identityservice.dto.RegisterRequestDto;
-import org.example.identityservice.dto.RegisterResponseDto;
-import org.example.identityservice.dto.TokenResponse;
+import org.example.identityservice.dto.*;
 import org.example.identityservice.entity.User;
 import org.example.identityservice.mapper.UserMapper;
+import org.example.identityservice.repository.UserRepository;
 import org.example.identityservice.service.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 
 @Service
@@ -19,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final BaseJwtService baseJwtService;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Override
     public TokenResponse login(LoginRequestDto loginRequest) {
@@ -31,27 +33,26 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     public RegisterResponseDto register(RegisterRequestDto registerRequest) {
-//        User userToAdd =new User();
-//        userToAdd.setEmail(registerRequest.getEmail());
-//        userToAdd.setName(registerRequest.getName());
-//        userToAdd.setSurname(registerRequest.getSurname());
-//        userToAdd.setIdentityNo(registerRequest.getIdentityNo());
-//
-//        User user = userService.create(userToAdd);
-//
-       // User user = UserMapper.INSTANCE.userFromUserAddRequestDto(registerRequest);
-
-        /* register dto
-            şifresini aldım encode edip kendi alanına setledim
-
-         */
-
 
         registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userService.create(registerRequest);
         RegisterResponseDto registerResponseDto = new RegisterResponseDto();
         registerResponseDto.setEmail(registerRequest.getEmail());
         return registerResponseDto;
+    }
+
+    @Override
+    public GetUserByEmailResponse getUserByEmail(GetUserByEmailRequest request) {
+
+        User user = userRepository.findByEmail(request.getEmail());
+
+        if(user == null){
+            throw new RuntimeException("No user with this credentials!");
+        }
+
+        GetUserByEmailResponse getUserByEmailResponse = UserMapper.INSTANCE.getUserByEmailResponseFromUser(user);
+
+        return getUserByEmailResponse;
     }
 
 }
