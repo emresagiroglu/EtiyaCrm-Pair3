@@ -1,10 +1,8 @@
 <main class="overflow-hidden">
   <div class="p-6 w-full h-full flex flex-col">
-    <p class="text-xl text-black font-semibold mb-4">Create Customer</p>
+    <p class="text-2xl text-white mb-4">Create Customer</p>
     <div class="border-2 border-white p-6 sm:pb-12 w-full h-full">
-      <p class="text-xl text-black font-semibold mb-4">
-        Demographic Information
-      </p>
+      <p class="text-2xl text-white mb-4">Demographic Information</p>
       <form
         [formGroup]="customerForm"
         class="border-2 border-white p-6 pb-12 grid grid-cols-2 gap-6"
@@ -173,7 +171,7 @@
           [type]="'primary'"
           [width]="'150px'"
           [isDisabled]="false"
-          (onClick)="toggleModal()"
+          (onClick)="showExitModal()"
         ></app-button>
         <app-button
           [label]="'Next'"
@@ -186,4 +184,57 @@
     </div>
   </div>
 
+  <app-popup
+    *ngIf="showExitPopup"
+    [modalWidth]="'633px'"
+    [modalHeight]="'334px'"
+    [title]="''"
+    (onClose)="closeExitModal()"
+  >
+    <div content>
+      <form>
+        <div class="sm:flex sm:gap-8 justify-around items-center">
+          <div class="flex flex-col items-center">
+            <svg
+              class="w-[80px] h-[80px] text-red-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div>
+              <p class="text-xl text-white my-5 text-center">
+                Are you sure you want to exit without saving customer
+                information?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="sm:flex sm:gap-8 mt-5 justify-around">
+          <app-button
+            [label]="'Cancel'"
+            [type]="'secondary'"
+            [width]="'150px'"
+            [isDisabled]="false"
+            (click)="closeExitModal()"
+          ></app-button>
+          <app-button
+            [label]="'Confirm'"
+            [type]="'secondary'"
+            [width]="'150px'"
+            (click)="navigateToCustomerSearch()"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+  </app-popup>
 </main>

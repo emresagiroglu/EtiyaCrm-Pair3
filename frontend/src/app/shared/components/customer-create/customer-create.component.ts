@@ -16,7 +16,6 @@ import { ButtonComponent } from '../button/button.component';
 import { PopupComponent } from '../popup/popup.component';
 import { CustomerCreateRequest } from '../../models/customer/customerCreateRequest';
 
-
 @Component({
   selector: 'app-customer-create',
   standalone: true,
@@ -36,8 +35,15 @@ export class CustomerCreateComponent {
   selectedOption: string = 'all'; // Varsayılan olarak tüm inputlar açık
   maxDate: string; // Maksimum seçilebilir tarih
 
-  constructor(private fb: FormBuilder, private router: Router,
-     private customerCreateService : CustomerCreateService, private customerIdService : CustomerIdService) {
+  showExitPopup: boolean = false;
+  showModal: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private customerCreateService: CustomerCreateService,
+    private customerIdService: CustomerIdService
+  ) {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -49,7 +55,7 @@ export class CustomerCreateComponent {
       gender: ['', Validators.required],
       fatherName: [''],
       motherName: [''],
-      nationality:[true],
+      nationality: [true],
       nationalityId: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
@@ -65,8 +71,9 @@ export class CustomerCreateComponent {
       alert('Please fill out all required fields correctly.');
       return;
     }
-    const customerCreateRequest: CustomerCreateRequest = this.customerForm.value;
-  
+    const customerCreateRequest: CustomerCreateRequest =
+      this.customerForm.value;
+
     this.customerCreateService.createCustomer(customerCreateRequest).subscribe({
       next: (response) => {
         this.customerIdService.customerId = response.id;
@@ -74,11 +81,21 @@ export class CustomerCreateComponent {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
-  showModal: boolean = false;
+  navigateToCustomerSearch() {
+    this.router.navigate(['/customer-search']);
+  }
+
+  showExitModal() {
+    this.showExitPopup = true;
+  }
+
+  closeExitModal() {
+    this.showExitPopup = false;
+  }
 
   toggleModal() {
     this.showModal = !this.showModal;
