@@ -1,8 +1,6 @@
-import { CustomerIdService } from './../../services/customer-service/customer-id.service';
-import { CustomerCreateService } from './../../../shared/services/customer-service/customer-create.service';
 import { routes } from './../../../app.routes';
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -15,6 +13,7 @@ import { RadioButtonComponent } from '../radio-button/radio-button.component';
 import { ButtonComponent } from '../button/button.component';
 import { PopupComponent } from '../popup/popup.component';
 import { CustomerCreateRequest } from '../../models/customer/customerCreateRequest';
+import { CustomerService } from '../../services/customer-service/customer.service';
 
 @Component({
   selector: 'app-customer-create',
@@ -30,20 +29,16 @@ import { CustomerCreateRequest } from '../../models/customer/customerCreateReque
   templateUrl: './customer-create.component.html',
   styleUrl: './customer-create.component.scss',
 })
-export class CustomerCreateComponent {
+export class CustomerCreateComponent implements OnInit {
   customerForm: FormGroup; // Reactive Form için FormGroup
   selectedOption: string = 'all'; // Varsayılan olarak tüm inputlar açık
   maxDate: string; // Maksimum seçilebilir tarih
-
   showExitPopup: boolean = false;
   showModal: boolean = false;
+  
+  constructor(private fb: FormBuilder, private router: Router,
+     private customerService : CustomerService) {
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private customerCreateService: CustomerCreateService,
-    private customerIdService: CustomerIdService
-  ) {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -59,6 +54,14 @@ export class CustomerCreateComponent {
       nationalityId: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
+  ngOnInit(): void {
+ 
+    const savedForm = this.customerService.getFormData()
+    if (savedForm) {
+      this.customerForm.patchValue(savedForm.value)
+    }
+
+  }
 
   options = [
     { label: 'Turkish', value: 'all' },
@@ -66,23 +69,57 @@ export class CustomerCreateComponent {
   ];
 
   handleButtonClick() {
+    // Form validasyonu
     if (this.customerForm.invalid) {
       this.customerForm.markAllAsTouched();
       alert('Please fill out all required fields correctly.');
       return;
     }
-    const customerCreateRequest: CustomerCreateRequest =
-      this.customerForm.value;
 
-    this.customerCreateService.createCustomer(customerCreateRequest).subscribe({
-      next: (response) => {
-        this.customerIdService.customerId = response.id;
-        this.router.navigate(['/address-info']);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+  
+    // Kaydedilmiş formu al
+    const savedForm = this.customerService.getFormData();
+    console.log(savedForm);
+  
+    // Eğer savedForm boşsa, yeni müşteri yaratılır
+    if (!savedForm || Object.keys(savedForm).length === 0) {
+      const customerCreateRequest: CustomerCreateRequest = this.customerForm.value;
+      console.log("1");
+      this.customerService.createCustomer(customerCreateRequest).subscribe({
+        next: (response) => {
+          this.customerService.customerId = response.id;
+          this.customerService.setFormData(this.customerForm);
+          console.log("2");
+          // Başarılı olduğunda adres bilgisine yönlendir
+          this.router.navigate(['/address-info']);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
+    // Eğer savedForm boş değil ve formda güncelleme yoksa
+    else if (savedForm && !this.isFormUpdated()) {
+      // Formda değişiklik yoksa sadece adres bilgisi sayfasına yönlendir
+      this.router.navigate(['/address-info']);
+      console.log("3");
+    }
+    // Eğer savedForm dolu ve formda değişiklik varsa
+    else if (savedForm && this.isFormUpdated()) {
+      const customerUpdateRequest: CustomerCreateRequest = this.customerForm.value; // Formdaki güncel değerler update isteği olarak gönderilir
+      const customerId = this.customerService.customerId; // Güncellenecek müşteri ID'si
+      console.log("4");
+      this.customerService.updateCustomer(customerUpdateRequest, customerId).subscribe({
+        next: (response) => {
+          // Güncelleme başarılı olduğunda adres bilgisine yönlendir
+          this.customerService.setFormData(this.customerForm);
+          this.router.navigate(['/address-info']);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   }
 
   navigateToCustomerSearch() {
@@ -100,4 +137,30 @@ export class CustomerCreateComponent {
   toggleModal() {
     this.showModal = !this.showModal;
   }
+
+  isFormUpdated(): boolean {
+    const savedForm = this.customerService.getFormData();
+    
+    // Eğer kaydedilen form yoksa, güncellenmemiştir
+    if (!savedForm) {
+      return false;
+    }
+  
+    // customerForm içindeki mevcut değerleri alıyoruz
+    const currentFormValue = this.customerForm.value;
+  
+    // Formdaki her alanı tek tek karşılaştırıyoruz
+    for (const key in currentFormValue) {
+      if (currentFormValue.hasOwnProperty(key)) {
+        // Eğer herhangi bir değer farklıysa, form güncellenmiş demektir
+        if (currentFormValue[key] !== savedForm.value[key]) {
+          return true;
+        }
+      }
+    }
+  
+    // Eğer tüm değerler aynıysa form güncellenmemiştir
+    return false;
+  }
+  
 }

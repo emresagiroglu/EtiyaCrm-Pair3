@@ -1,5 +1,4 @@
 
-import { CustomerCncRequest } from './../../models/customer/customerCncRequest';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -13,11 +12,11 @@ import { RadioButtonComponent } from '../radio-button/radio-button.component';
 import { ButtonComponent } from '../button/button.component';
 import { PopupComponent } from '../popup/popup.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerUpdateService } from '../../services/customer-update.service';
-import { CustomerUpdateRequest } from '../../models/customer/customerUpdateRequest';
-import { CustomerUpdateResponse } from '../../models/customer/customerUpdateResponse';
-import { CustomerIdService } from '../../services/customer-service/customer-id.service';
-import { CustomerCncService } from '../../services/customer-service/customer-cnc.service';
+import { ContactInfoService } from '../../services/customer-service/contact-info.service';
+
+import { CustomerService } from '../../services/customer-service/customer.service';
+import { CncInfoCreateRequest } from '../../models/cnc-info/cncInfoCreateRequest';
+import { CncInfoUpdateRequest } from '../../models/cnc-info/cncInfoUpdateRequest';
 
 
 @Component({
@@ -41,11 +40,11 @@ export class CustomerUpdateComponent implements OnInit {
   selectedOption: string = 'all';
   currentCustomerId! : number;
   customerId: number | null = null;  // Müşteri kimliğini tutmak için bir değişken
-  customer: CustomerUpdateResponse | null = null;  // Güncellenmiş müşteri bilgileri
+ // customer: CustomerU | null = null;  // Güncellenmiş müşteri bilgileri
         
         
-  constructor(private fb: FormBuilder, private customerIdService : CustomerIdService, 
-    private customerCncService : CustomerCncService, private router : Router,private customerUpdateService : CustomerUpdateService,private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private customerService : CustomerService, 
+    private cncInfoService : ContactInfoService, private router : Router,private route: ActivatedRoute) {
     this.customerUpdateForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
@@ -57,7 +56,7 @@ export class CustomerUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentCustomerId = this.customerIdService.customerId;
+    this.currentCustomerId = this.customerService.customerId;
   }
  
   handleButtonClick() {
@@ -69,7 +68,7 @@ export class CustomerUpdateComponent implements OnInit {
 
     console.log('Form Submitted:', this.customerUpdateForm.value);
 
-    const customerUpdateRequest: CustomerUpdateRequest = {
+    const cncInfoUpdateRequest: CncInfoUpdateRequest = {
       id: this.customerId!,
       email: this.customerUpdateForm.value.email,
       phone: this.customerUpdateForm.value.phone,
@@ -78,15 +77,14 @@ export class CustomerUpdateComponent implements OnInit {
     };
 
 
-    const customerCncRequest: CustomerCncRequest = {
+    const cncInfoCreateRequest: CncInfoCreateRequest = {
       customerId : this.currentCustomerId,
-      contactName : "",
       email: this.customerUpdateForm.get('email')?.value,
       homePhone: this.customerUpdateForm.get('homePhone')?.value,
       mobilePhone: this.customerUpdateForm.get('phone')?.value,
       fax: this.customerUpdateForm.get('fax')?.value,
     }
-    this.customerCncService.createCncInfo(customerCncRequest).subscribe({
+    this.cncInfoService.createCncInfo(cncInfoCreateRequest).subscribe({
       next: (response) => {
         if(response.customerId != null) {
           this.router.navigate(['/customer-search']);

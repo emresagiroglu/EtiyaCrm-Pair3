@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -167,6 +168,11 @@ public class CustomerServiceImpl implements CustomerService {
     public UpdateIndividualCustomerResponseDto updateIndividualCustomer(UpdateIndividualCustomerRequestDto updateIndividualCustomerRequestDto, Long id) {
         // IndividualCustomer'ı güncelle
         IndividualCustomer individualCustomerInDb = individualCustomerRepository.findById(id).orElseThrow();
+
+        // Eğer kullanıcı bilgilerini update ederken nationalityIdsini değiştirdiyse nationalityId kontrolü yap!
+        if (!Objects.equals(individualCustomerInDb.getNationalityId(), updateIndividualCustomerRequestDto.getNationalityId())) {
+            customerBusinessRules.customerWithSameNationalityId(updateIndividualCustomerRequestDto.getNationalityId());
+        }
 
         // update işlemini yap
         individualCustomerInDb.setFirstName(updateIndividualCustomerRequestDto.getFirstName());
