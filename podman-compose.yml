@@ -187,6 +187,15 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 168
     networks:
       - common
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq3
+    ports:
+      - "5672:5672"  # RabbitMQ iletişim portu
+      - "15672:15672" # RabbitMQ yönetim konsolu portu
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
   frontend:
     build: ./frontend

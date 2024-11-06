@@ -13,6 +13,7 @@ import com.etiya.customerservice.services.abstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
 import io.github.emresagiroglu.kafka.events.customer.CustomerCreatedEvent;
 import io.github.emresagiroglu.kafka.events.contactinformation.ContactInformationUpdatedEvent;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 import com.etiya.customerservice.kafka.ContactMediumProducer;
 
@@ -26,6 +27,7 @@ public class ContactInformationServiceImpl implements ContactInformationService 
     private final ContactInformationRepository contactInformationRepository;
     private final CustomerProducer customerProducer;
     private final ContactMediumProducer contactMediumProducer;
+    private final StreamBridge streamBridge;
     public List<ListContactInformationResponseDto> getContactInformationsAll() {
         List<ContactInformation> contactInformationList = contactInformationRepository.findAll();
         return ContactInformationMapper.INSTANCE.getAllContactInformationsResponseDtoFromContactInformations(contactInformationList);
@@ -52,8 +54,11 @@ public class ContactInformationServiceImpl implements ContactInformationService 
         // İkinci map işlemi: ContactInformation'dan gelen verileri mevcut event'e ekleyerek güncelleme
         KafkaMapper.INSTANCE.updateCustomerCreatedEventFromContactInformation(customerCreatedEvent, contactInformation);
 
-        // Mesaj gönderme
-        customerProducer.sendMessage(customerCreatedEvent);
+//        // Mesaj gönderme
+//        customerProducer.sendMessage(customerCreatedEvent);
+
+        streamBridge.send("customerCreatedEvent-out-0",customerCreatedEvent);
+
 
         return createContactInformationResponseDto;
 
