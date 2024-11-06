@@ -37,6 +37,7 @@ import { Route, Router } from '@angular/router';
 export class AddressInfoComponent implements OnInit{
   showModal: boolean = false;
   showExitPopup: boolean = false;
+  showErrorModal: boolean = false;
   addresses: AddressResponse[] = []; // Adresleri saklamak için dizi
   addressForm : FormGroup;
   currentCustomerId! : number; 
@@ -91,6 +92,7 @@ export class AddressInfoComponent implements OnInit{
   closeModal() {
     this.showModal = false;
     this.showExitPopup = false;
+    this.showErrorModal = false;
     this.addressForm.reset()
   }
 
@@ -102,10 +104,12 @@ export class AddressInfoComponent implements OnInit{
     }
 
   }
+
   nextComponent(){
     if(this.addresses.length!=0){
-      this.router.navigate(['/customer-update']);
+      this.router.navigate(['/contact-medium']);
     }
+    this.showErrorModal = true;
     
   }
   previousComponent(){
