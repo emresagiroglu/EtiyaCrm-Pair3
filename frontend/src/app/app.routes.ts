@@ -12,6 +12,7 @@ import { CustomerUpdateComponent } from './shared/components/customer-update/cus
 import { CustomerInfoComponent } from './shared/components/customer-info/customer-info.component';
 import {CustomerCreatePageComponent} from './shared/pages/customer-create-page/customer-create-page.component'
 import { tokenGuard } from './shared/guards/token.guard';
+import { ContactMediumComponent } from './shared/components/contact-medium/contact-medium.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -23,7 +24,8 @@ export const routes: Routes = [
   { path: 'sale-selection', canActivate: [tokenGuard], component: SaleSelectionComponent },
   { path: 'customer-update', canActivate: [tokenGuard], component: CustomerUpdateComponent },
   {path: 'customer-info/:id', canActivate: [tokenGuard], component : CustomerInfoComponent},
-  {path: 'customer-create-page', canActivate: [tokenGuard], component: CustomerCreatePageComponent}
+  {path: 'contact-medium', canActivate: [tokenGuard], component: ContactMediumComponent}
+
 ];
 
 @NgModule({

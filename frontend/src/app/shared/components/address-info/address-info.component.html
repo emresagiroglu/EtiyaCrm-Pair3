@@ -4,80 +4,61 @@
     <div class="border-2 border-white p-6 sm:pb-12 w-full h-full">
       <p class="text-2xl text-white mb-4">Address Info</p>
       <div class="border-2 border-white p-3">
-        <div
-          class="bg-gray-200 opacity-60 rounded-md h-64 p-6 flex justify-center items-center gap-6"
-        >
-          <p
-            *ngIf="addresses.length === 0"
-            class="text-2xl text-black font-semibold"
-          >
-            There is no address
-          </p>
-          <div class="bg-white h-auto rounded-full flex justify-center">
-            <div
-              *ngFor="let address of addresses"
-              class="text-xl font-medium p-6"
-            >
-              <div class="flex gap-6">
-                <div class="bg-gray-500 rounded-full p-1">
-                  <app-radio-button
-                    [options]="options"
-                    [(selectedOption)]="selectedOption"
-                  >
-                  </app-radio-button>
-                </div>
-                <div class="mt-1">
-                  {{ address.neighbourhoodId }}, {{ address.street }} ,
-                  {{ address.houseNumber }}
-                </div>
-              </div>
+        <div class="bg-gray-200 opacity-60 rounded-md h-64 p-6">
+          @if(addresses.length === 0){
+          <div class="flex justify-center items-center h-full">
+            <p class="text-bold">There is no address</p>
+          </div>
+          }@else{
+          <div *ngFor="let address of addresses"
+            class="bg-white rounded-lg w-full max-w-md p-4 flex items-center justify-between mt-2">
+            <div class="bg-gray-900 rounded-full p-2 flex items-center justify-center text-white">
+              <app-radio-button [options]="options" [(selectedOption)]="selectedOption"></app-radio-button>
+            </div>
+
+            <div class="flex flex-row text-center ml-4">
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.neighbourhoodId }},</p>
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.street }},</p>
+              <p class="text-lg font-bold text-gray-950">{{ address.houseNumber }}</p>
             </div>
           </div>
+          <!--           <div *ngFor="let address of addresses" class=" rounded-lg w-full max-w-md p-4 flex items-start justify-between">
+              <div class="bg-gray-900 rounded-xl p-1 flex items-center justify-end text-white">
+                <app-radio-button
+                  [options]="options"
+                  [(selectedOption)]="selectedOption"
+                ></app-radio-button>
+              </div>
+          
+              <div class="flex flex-row ml-11 mt-1">
+                <p class="text-lg font-bold text-gray-950 mr-4"> {{ address.neighbourhoodId }}, </p>
+                <p class="text-lg font-bold text-gray-950 mr-4">  {{ address.street }}, </p>
+                <p class="text-lg font-bold text-gray-950">  {{ address.houseNumber }}</p>
+              </div>
+            </div>
+          -->
+          }
+
         </div>
       </div>
       <div class="sm:flex justify-evenly mt-4">
         <div class="sm:flex sm:gap-8 justify-between">
-          <app-button
-            [label]="'Exit'"
-            [type]="'primary'"
-            [width]="'150px'"
-            [isDisabled]="false"
-            (click)="handleButtonClick()"
-          ></app-button>
-          <app-button
-            [label]="'Add'"
-            [type]="'primary'"
-            [width]="'150px'"
-            (click)="openModal()"
-          ></app-button>
+          <app-button [label]="'Exit'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+            (click)="handleButtonClick()"></app-button>
+          <app-button [label]="'Add'" [type]="'primary'" [width]="'150px'" (click)="openModal()"></app-button>
         </div>
         <div class="sm:flex gap-4">
-          <app-button
-            [label]="'Previous'"
-            [type]="'primary'"
-            [width]="'150px'"
-            [isDisabled]="false"
-            (onClick)="previousComponent()"
-          ></app-button>
-          <app-button
-            [label]="'Next'"
-            [type]="'primary'"
-            [width]="'150px'"
-            [isDisabled]="false"
-            (onClick)="nextComponent()"
-          ></app-button>
+          <app-button [label]="'Previous'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+            (onClick)="previousComponent()"></app-button>
+          <app-button [label]="'Next'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+            (onClick)="nextComponent()"></app-button>
         </div>
       </div>
     </div>
   </div>
 </main>
-<app-popup
-  *ngIf="showExitPopup" 
-  [modalWidth]="'733px'"
-  [modalHeight]="'380px'"
-  [title]="''"
-  (onClose)="closeModal()"
->
+
+<app-popup *ngIf="showExitPopup" [modalWidth]="'733px'" [modalHeight]="'343px'" [title]="''" (onClose)="closeModal()">
   <div content>
     <form>
       <div class="sm:flex sm:gap-8 justify-around items-center">
@@ -85,6 +66,7 @@
           <svg class="w-[80px] h-[80px] text-red-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" fill="currentColor" /> 
             <path fill="#FFFFFF" d="M11 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm1 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/> 
+
           </svg>
             <div>
                 <p class="text-2xl text-white mt-10 text-center">Are you sure you want to exit without saving customer information?</p>
@@ -111,116 +93,79 @@
           [style.height]="'63px'"
           (click)="goToSearch()"
         ></app-button>
+
       </div>
     </form>
   </div>
 </app-popup>
 
-<app-popup
-  *ngIf="showModal"
-  [modalWidth]="'800px'"
-  [modalHeight]="'550px'"
-  [title]="''"
-  (onClose)="closeModal()"
->
+<app-popup *ngIf="showErrorModal" [modalWidth]="'733px'" [modalHeight]="'343px'" [title]="''" (onClose)="closeModal()">
+  <div content>
+    <form>
+      <div class="sm:flex sm:gap-8 justify-around items-center">
+        <div class="flex flex-col items-center">
+          <svg class="w-[80px] h-[80px] text-red-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
+              clip-rule="evenodd" />
+          </svg>
+
+          <div>
+            <p class="text-xl text-white mt-10 text-center">
+              You are abandoning the address entry process
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="sm:flex sm:gap-8 mt-20 justify-center">
+        <app-button [label]="'Cancel'" [type]="'secondary'" [width]="'150px'" [isDisabled]="false"
+          (click)="closeModal()"></app-button>
+      </div>
+    </form>
+  </div>
+</app-popup>
+
+<app-popup *ngIf="showModal" [modalWidth]="'800px'" [modalHeight]="'550px'" [title]="''" (onClose)="closeModal()">
   <div content>
     <form [formGroup]="addressForm">
       <div class="grid gap-6 md:grid-cols-2 p-6">
         <div>
-          <label for="city" class="block mb-2 text-sm font-medium text-white"
-            >City *</label
-          >
-          <input
-            type="text"
-            id="city"
-            name="city"
+          <label for="city" class="block mb-2 text-sm font-medium text-white">City *</label>
+          <input type="text" id="city" name="city"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-            formControlName="city"
-          />
+            formControlName="city" />
         </div>
         <div>
-          <label
-            for="district"
-            class="block mb-2 text-sm font-medium text-white"
-            >District *</label
-          >
-          <input
-            type="text"
-            id="district"
-            name="district"
-            formControlName="district"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-          />
+          <label for="district" class="block mb-2 text-sm font-medium text-white">District *</label>
+          <input type="text" id="district" name="district" formControlName="district"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5" />
         </div>
         <div>
-          <label for="street" class="block mb-2 text-sm font-medium text-white"
-            >Street *</label
-          >
-          <input
-            type="text"
-            id="street"
-            name="street"
-            formControlName="street"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-          />
+          <label for="street" class="block mb-2 text-sm font-medium text-white">Street *</label>
+          <input type="text" id="street" name="street" formControlName="street"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5" />
         </div>
         <div>
-          <label
-            for="houseFlat"
-            class="block mb-2 text-sm font-medium text-white"
-            >House / Flat *</label
-          >
-          <input
-            type="text"
-            id="houseFlat"
-            name="houseFlat"
-            formControlName="houseFlat"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-          />
+          <label for="houseFlat" class="block mb-2 text-sm font-medium text-white">House / Flat *</label>
+          <input type="text" id="houseFlat" name="houseFlat" formControlName="houseFlat"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5" />
         </div>
         <div>
-          <label
-            for="neighbourhood"
-            class="block mb-2 text-sm font-medium text-white"
-            >Neighbourhood *</label
-          >
-          <input
-            type="text"
-            id="neighbourhood"
-            name="neighbourhood"
-            formControlName="neighbourhood"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5"
-          />
+          <label for="neighbourhood" class="block mb-2 text-sm font-medium text-white">Neighbourhood *</label>
+          <input type="text" id="neighbourhood" name="neighbourhood" formControlName="neighbourhood"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5" />
         </div>
       </div>
       <div class="p-6">
-        <label
-          for="description"
-          class="block mb-2 text-sm font-medium text-white"
-          >Address Description *</label
-        >
-        <input
-          type="text"
-          id="description"
-          name="description"
-          formControlName="description"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
-        />
+        <label for="description" class="block mb-2 text-sm font-medium text-white">Address Description *</label>
+        <input type="text" id="description" name="description" formControlName="description"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" />
       </div>
       <div class="sm:flex sm:gap-8 justify-around">
-        <app-button
-          [label]="'Cancel'"
-          [type]="'primary'"
-          [width]="'150px'"
-          [isDisabled]="false"
-          (click)="closeModal()"
-        ></app-button>
-        <app-button
-          [label]="'Save'"
-          [type]="'primary'"
-          [width]="'150px'"
-          (click)="saveAddress()"
-        ></app-button>
+        <app-button [label]="'Cancel'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+          (click)="closeModal()"></app-button>
+        <app-button [label]="'Save'" [type]="'primary'" [width]="'150px'" (click)="saveAddress()"></app-button>
       </div>
     </form>
   </div>

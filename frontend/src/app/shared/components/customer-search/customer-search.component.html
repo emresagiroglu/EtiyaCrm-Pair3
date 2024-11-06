@@ -152,7 +152,7 @@
                 Only text values!
               </div>
 
-              <div class="flex justify-around gap-5 my-7">
+              <div class="md:flex md:justify-around gap-5 my-7">
                 <app-button
                   [label]="'Cancel'"
                   [type]="'primary'"
@@ -206,29 +206,7 @@
                   [searchResulDatas]="searchResulDatas"
                 ></app-customer-table>
               </div>
-              <div class="flex justify-center mt-6">
-                <ul>
-                  <li
-                    *ngFor="
-                      let item of items
-                        | paginate
-                          : {
-                              itemsPerPage: itemsPerPage,
-                              currentPage: currentPage
-                            }
-                    "
-                    class="py-2"
-                  >
-                    {{ item }}
-                  </li>
-                </ul>
-                <pagination-controls
-                  (pageChange)="onPageChange($event)"
-                  [directionLinks]="false"
-                  [autoHide]="true"
-                  class="mt-4"
-                ></pagination-controls>
-              </div>
+             
               <!-- Dropdown menu -->
               <div
                 id="dropdownHover"
@@ -316,10 +294,17 @@
           </div>
         </div>
       </div>
+      
 
       <!-- İkinci sekmenin içeriği -->
       <div tabContent1></div>
     </app-tabs>
+    <div class="flex gap-3 justify-center">
+      <button type="button" (click)="onClickPrevious()" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Previous</button>
+      <div class="w-10 h-10 bg-slate-500 p-2 ml-2 rounded items-center"><p class="ml-2">{{customerSearchService.currentPageService}}</p></div>
+      <button type="button" (click)="onClickNext()" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Next</button>
+      
+    </div>
   </div>
 </div>
 

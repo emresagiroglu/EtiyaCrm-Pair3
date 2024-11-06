@@ -40,26 +40,31 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class CustomerSearchComponent implements OnInit {
   tabs: string[] = ['B2C', 'B2B'];
 
+  showModal: boolean = false;
   showCustomerNotFound: boolean = false;
 
   searchResulDatas!: CustomerSearchResponse[];
+  paginatedData!: CustomerSearchResponse[];
 
   searchForm!: FormGroup;
 
   activeTab: number = 0;
+  totalPages!: number;
 
   currentPage: number = 1;
   itemsPerPage: number = 5; // Sayfa başına gösterilecek eleman sayısı
-  items = Array.from({ length: 50 }, (_, i) => `Item #${i + 1}`); // Örnek veri
+  
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerSearchService: CustomerSearchService,
+    public customerSearchService: CustomerSearchService,
     private router: Router
+    
   ) {}
 
   onPageChange(page: number) {
     this.currentPage = page;
+    this.updatePaginatedData();
   }
 
   ngOnInit(): void {
@@ -98,16 +103,23 @@ export class CustomerSearchComponent implements OnInit {
 
     const customerSearchRequest: CustomerSearchRequest = this.searchForm.value;
 
-    this.customerSearchService.searchCustomer(customerSearchRequest).subscribe({
-      next: (response: CustomerSearchResponse[]) => {
-        this.searchResulDatas = response;
-        
-        if (response.length === 0) {
+    this.customerSearchService.searchCustomer(customerSearchRequest,this.customerSearchService.currentPageService-1).subscribe({
+      next: (response: any) => {
+        this.searchResulDatas = response.content;
+        this.totalPages = response.totalPages;
+        this.updatePaginatedData();
+
+        if (response.content.length === 0) {
           this.showCustomerNotFound= true;
         }
       },
     });
   }
+  updatePaginatedData() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+        this.paginatedData = this.searchResulDatas.slice(startIndex, endIndex);
+      }
 
   onlyTextValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -127,8 +139,17 @@ export class CustomerSearchComponent implements OnInit {
     this.activeTab = index;
   }
 
+  toggleModal() {
+    this.showModal = !this.showModal;
+
+    if (!this.showModal) {
+      // Reset the search results when closing the modal
+      this.searchResulDatas = [];
+    }
+  }
+
   handleButtonClick() {
-    this.buildForm();
+    this.buildForm()
   }
 
   goToCustomerCreate() {
@@ -141,5 +162,21 @@ export class CustomerSearchComponent implements OnInit {
 
   closeExitModal() {
     this.showCustomerNotFound = false;
+  }
+
+  onClickNext() {
+    if(this.customerSearchService.currentPageService < this.totalPages){
+      this.customerSearchService.currentPageService +=1;
+    }
+
+    
+    this.submitForm();
+  }
+  onClickPrevious(){
+    if(this.customerSearchService.currentPageService > 1){
+      this.customerSearchService.currentPageService -=1
+    }
+    this.submitForm();
+    
   }
 }

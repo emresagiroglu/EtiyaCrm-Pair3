@@ -5,16 +5,16 @@
       <p class="text-2xl text-white mb-4">Demographic Information</p>
       <form
         [formGroup]="customerForm"
-        class="border-2 border-white p-6 pb-12 grid grid-cols-2 gap-6"
+        class="border-2 border-white p-6 pb-12 grid grid-cols-2 gap-6 bg-gray-500 rounded-lg opacity-80"
       >
-        <div class="sm:col-span-1 sm:flex flex-col">
-          <label class="text-xl font-semibold text-black" for="firstName"
+        <div class="sm:col-span-1 sm:flex flex-col ">
+          <label class="font-bold text-lg text-white" for="firstName"
             >First Name *</label
           >
           <input
             type="text"
             id="firstName"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="firstName"
           />
           <div
@@ -29,24 +29,24 @@
         </div>
 
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="middleName"
+          <label class="font-bold text-lg text-white" for="middleName"
             >Middle Name</label
           >
           <input
             type="text"
             id="middleName"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="middleName"
           />
         </div>
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="lastName"
+          <label class="font-bold text-lg text-white" for="lastName"
             >Last Name *</label
           >
           <input
             type="text"
             id="lastName"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="lastName"
           />
           <div
@@ -61,25 +61,25 @@
         </div>
 
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="birthDate"
+          <label class="font-bold text-lg text-white" for="birthDate"
             >Birth Date*</label
           >
           <input
             type="date"
             id="birthDate"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="birthDate"
             [max]="maxDate"
           />
         </div>
 
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="gender"
+          <label class="font-bold text-lg text-white" for="gender"
             >Gender*</label
           >
           <select
             id="gender"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="gender"
           >
             <option value="" disabled>Select Gender</option>
@@ -98,35 +98,35 @@
           </div>
         </div>
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="fatherName"
+          <label class="font-bold text-lg text-white" for="fatherName"
             >Father Name</label
           >
           <input
             type="text"
             id="fatherName"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="fatherName"
           />
         </div>
         <div class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="motherName"
+          <label class="font-bold text-lg text-white" for="motherName"
             >Mother Name</label
           >
           <input
             type="text"
             id="motherName"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="motherName"
           />
         </div>
         <div *ngIf="selectedOption === 'all'" class="col-span-1 flex flex-col">
-          <label class="text-xl font-semibold text-black" for="nationalityId"
+          <label class="font-bold text-lg text-white" for="nationalityId"
             >Nationality ID</label
           >
           <input
             type="text"
             id="nationalityId"
-            class="border p-2 rounded"
+            class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             formControlName="nationalityId"
           />
           <div

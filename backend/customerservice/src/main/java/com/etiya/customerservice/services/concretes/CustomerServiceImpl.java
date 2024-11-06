@@ -11,6 +11,7 @@ import com.etiya.customerservice.kafka.CustomerProducer;
 import com.etiya.customerservice.mapper.CorporateCustomerMapper;
 import com.etiya.customerservice.mapper.CustomerMapper;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
+import com.etiya.customerservice.mapper.KafkaMapper;
 import com.etiya.customerservice.repositories.CorporateCustomerRepository;
 import com.etiya.customerservice.repositories.CustomerRepository;
 import com.etiya.customerservice.repositories.IndividualCustomerRepository;
@@ -174,27 +175,14 @@ public class CustomerServiceImpl implements CustomerService {
             customerBusinessRules.customerWithSameNationalityId(updateIndividualCustomerRequestDto.getNationalityId());
         }
 
-        // update işlemini yap
-        individualCustomerInDb.setFirstName(updateIndividualCustomerRequestDto.getFirstName());
-        individualCustomerInDb.setMiddleName(updateIndividualCustomerRequestDto.getMiddleName());
-        individualCustomerInDb.setLastName(updateIndividualCustomerRequestDto.getLastName());
-        individualCustomerInDb.setBirthDate(updateIndividualCustomerRequestDto.getBirthDate());
-        individualCustomerInDb.setGender(updateIndividualCustomerRequestDto.getGender());
-        individualCustomerInDb.setFatherName(updateIndividualCustomerRequestDto.getFatherName());
-        individualCustomerInDb.setMotherName(updateIndividualCustomerRequestDto.getMotherName());
-        individualCustomerInDb.setNationality(updateIndividualCustomerRequestDto.getNationality());
-        individualCustomerInDb.setNationalityId(updateIndividualCustomerRequestDto.getNationalityId());
-
+        //mysql save
+        individualCustomerInDb = IndividualCustomerMapper.INSTANCE.individualCustomerFromUpdateCustomerRequestDto(updateIndividualCustomerRequestDto);
+        individualCustomerInDb.setId(id);
         individualCustomerRepository.save(individualCustomerInDb);
 
 
-        CustomerUpdatedEvent customerUpdatedEvent = new CustomerUpdatedEvent();
-        customerUpdatedEvent.setId(individualCustomerInDb.getId().toString());
-        customerUpdatedEvent.setFirstName(individualCustomerInDb.getFirstName());
-        customerUpdatedEvent.setMiddleName(individualCustomerInDb.getMiddleName());
-        customerUpdatedEvent.setLastName(individualCustomerInDb.getLastName());
-        customerUpdatedEvent.setNationalityId(individualCustomerInDb.getNationalityId());
-
+        // kafka set
+        CustomerUpdatedEvent customerUpdatedEvent = KafkaMapper.INSTANCE.updateCustomerUpdatedEventFromIndividualCustomer(individualCustomerInDb);
         customerProducer.sendMessage(customerUpdatedEvent);
 
         // cevabı response IndividualCustomer olarak dön
