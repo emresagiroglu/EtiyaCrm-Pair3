@@ -16,4 +16,7 @@ public class GetAddressResponseDto {
     private String addressName;
     private String street;
     private String houseNumber;
+    private String neighbourhoodName;
+    private String districtName;
+    private String cityName;
 }
