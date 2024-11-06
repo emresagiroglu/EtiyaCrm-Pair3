@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
-import { InputComponent } from '../input/input.component';
 import {
   FormBuilder,
   FormControl,
@@ -10,8 +8,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { ButtonComponent } from '../button/button.component';
+import { InputComponent } from '../input/input.component';
+
 import { AuthService } from '../../services/auth-service/auth.service';
 import { StorageService } from '../../services/storage-service/storage.service';
+
 import { TokenResponse } from '../../models/auth/tokenResponse';
 
 @Component({
@@ -59,9 +62,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.form.value).subscribe({
       next: (response: TokenResponse) => {
-        console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
-        //this.router.navigate(['/customer-search']);
         window.location.href = '/customer-search';
       },
       error:(err) => {
