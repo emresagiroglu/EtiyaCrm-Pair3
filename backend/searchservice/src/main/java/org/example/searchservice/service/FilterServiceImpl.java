@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.example.searchservice.dto.SearchResponse;
 import org.example.searchservice.entity.Customer;
 import org.example.searchservice.repository.FilterRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,25 +59,16 @@ public class FilterServiceImpl implements FilterService{
         return searchResponses;
     }
 
-    @Override
-    public List<SearchResponse> search(
-            String nationalityId,
-            String id,
-            String accountNumber,
-            String mobilePhone,
-            String firstName,
-            String middleName,
-            String lastName,
-            String sortField,
-            String sortOrder) {
+    public Page<SearchResponse> search(String nationalityId, String id, String accountNumber, String mobilePhone,
+                                       String firstName, String middleName, String lastName,
+                                       String sortField, String sortOrder, Pageable pageable) {
+        // Pagination ve filtreleme işlemleri yapılacak
+        Page<Customer> customers = this.filterRepository.searchResult(
+                nationalityId, id, mobilePhone, accountNumber, firstName, middleName, lastName, sortField, sortOrder, pageable
+        );
 
-        List<Customer> customers =
-                this.filterRepository.searchResult(
-                        nationalityId, id, mobilePhone, accountNumber, firstName,middleName, lastName,sortField, sortOrder
-                );
-        List<SearchResponse> searchResponses = new ArrayList<>();
-
-        for (Customer customer : customers) {
+        // Müşterileri SearchResponse'a maplemek
+        return customers.map(customer -> {
             SearchResponse searchResponse = new SearchResponse();
             searchResponse.setId(customer.getId());
             searchResponse.setFirstName(customer.getFirstName());
@@ -84,9 +77,7 @@ public class FilterServiceImpl implements FilterService{
             searchResponse.setNationalityId(customer.getNationalityId());
             searchResponse.setAccountNumber(customer.getAccountNumber());
             searchResponse.setMobilePhone(customer.getPhoneNumber());
-
-            searchResponses.add(searchResponse);
-        }
-        return searchResponses;
+            return searchResponse;
+        });
     }
 }

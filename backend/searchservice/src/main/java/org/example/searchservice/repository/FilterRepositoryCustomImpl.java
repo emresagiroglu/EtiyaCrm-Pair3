@@ -2,6 +2,9 @@ package org.example.searchservice.repository;
 
 import org.example.searchservice.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,60 +18,60 @@ public class FilterRepositoryCustomImpl implements FilterRepositoryCustom{
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Customer> searchResult(
-            String nationalityId, String id, String mobilePhone, String accountNumber, String firstName, String middleName,String lastName, String sortField, String sortOrder) {
+    public Page<Customer> searchResult(
+            String nationalityId, String id, String mobilePhone, String accountNumber,
+            String firstName, String middleName, String lastName, String sortField,
+            String sortOrder, Pageable pageable) {
 
         List<Criteria> criteriaList = new ArrayList<>();
 
-        criteriaList.add(nationalityId != null ? Criteria.where("nationalityId").regex(nationalityId, "i") : null);
-        criteriaList.add(id != null && !id.isEmpty() ? Criteria.where("id").regex(id, "i") : null);
-        criteriaList.add(mobilePhone != null ? Criteria.where("phoneNumber").regex(mobilePhone, "i") : null);
-        criteriaList.add(accountNumber != null ? Criteria.where("accountNumber").regex(accountNumber, "i") : null);
-        criteriaList.add(firstName != null && !firstName.isEmpty() ? Criteria.where("firstName").regex(firstName, "i") : null);
-        criteriaList.add(middleName != null && !middleName.isEmpty() ? Criteria.where("middleName").regex(middleName, "i") : null);
-        criteriaList.add(lastName != null && !lastName.isEmpty() ? Criteria.where("lastName").regex(lastName, "i") : null);
-
-        criteriaList.removeIf(criteria -> criteria == null);
-        criteriaList.add(Criteria.where("deletedDate").is(null));
-
-        if (criteriaList.isEmpty()) {
-            return mongoTemplate.findAll(Customer.class);
+        if (nationalityId != null) {
+            criteriaList.add(Criteria.where("nationalityId").regex(nationalityId, "i"));
+        }
+        if (id != null && !id.isEmpty()) {
+            criteriaList.add(Criteria.where("id").regex(id, "i"));
+        }
+        if (mobilePhone != null) {
+            criteriaList.add(Criteria.where("phoneNumber").regex(mobilePhone, "i"));
+        }
+        if (accountNumber != null) {
+            criteriaList.add(Criteria.where("accountNumber").regex(accountNumber, "i"));
+        }
+        if (firstName != null && !firstName.isEmpty()) {
+            criteriaList.add(Criteria.where("firstName").regex(firstName, "i"));
+        }
+        if (middleName != null && !middleName.isEmpty()) {
+            criteriaList.add(Criteria.where("middleName").regex(middleName, "i"));
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            criteriaList.add(Criteria.where("lastName").regex(lastName, "i"));
         }
 
-        Query query = new Query();
-        query.addCriteria(new Criteria().andOperator(criteriaList.toArray(new Criteria[0])));
-        query.limit(20);
+        criteriaList.add(Criteria.where("deletedDate").is(null));
 
-        // Sıralama için null kontrolü
+        Query query = new Query();
+        if (!criteriaList.isEmpty()) {
+            query.addCriteria(new Criteria().andOperator(criteriaList.toArray(new Criteria[0])));
+        }
+
+        // Toplam eleman sayısını almak için
+        long total = mongoTemplate.count(query, Customer.class);
+
+        // Pagination için limit ve skip ekle
+        query.with(pageable);
+
+        // Sıralama işlemi
         if (sortField != null && !sortField.isEmpty()) {
             Sort.Direction direction = "desc".equalsIgnoreCase(sortOrder) ? Sort.Direction.DESC : Sort.Direction.ASC;
-
-            switch (sortField) {
-                case "id":
-                    query.with(Sort.by(direction, "id"));
-                    break;
-                case "firstName":
-                    query.with(Sort.by(direction, "firstName"));
-                    break;
-                case "lastName":
-                    query.with(Sort.by(direction, "lastName"));
-                    break;
-                case "nationalityId":
-                    query.with(Sort.by(direction, "nationalityId"));
-                    break;
-                default:
-                    // Geçersiz sıralama alanı için varsayılan sıralama (örneğin, customerId'ye göre)
-                    query.with(Sort.by(Sort.Direction.ASC, "customerId"));
-                    break;
-            }
+            query.with(Sort.by(direction, sortField));
         } else {
-            // Eğer sortField null ya da boşsa, varsayılan sıralama (örneğin, customerId'ye göre) kullanılabilir
             query.with(Sort.by(Sort.Direction.ASC, "customerId"));
         }
 
-        return mongoTemplate.find(query, Customer.class);
+        // Sayfalanmış verileri al
+        List<Customer> customers = mongoTemplate.find(query, Customer.class);
+
+        // Page nesnesi oluştur ve döndür
+        return new PageImpl<>(customers, pageable, total);
     }
-
-
-
 }
