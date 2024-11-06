@@ -1,66 +1,69 @@
 <main>
-    <div class="p-6 w-full h-full flex flex-col">
-        <div class="border-2 border-black p-6 sm:pb-12 w-full h-full">
-            <p class="text-xl font-medium mb-4">Contact Medium</p>
-
-            <form [formGroup]="contactCreateForm" class="border-2 border-black p-6 pb-12 grid grid-cols-2 gap-6">
-                <div class="sm:col-span-1 sm:flex flex-col">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="border p-2 rounded" formControlName="email" />
-                    <div *ngIf="
-                contactCreateForm.controls['email'].invalid &&
-                contactCreateForm.controls['email'].touched
-              " class="text-red-500">
-                        Please enter a valid email address
+    <div class="p-6 w-full h-full flex flex-col justify-center items-center">
+        <div class="p-6 sm:pb-12 w-full h-full">
+            <p class="text-2xl text-white mb-4">Create Customer</p>
+            <div class="border-2 border-white p-6 sm:pb-12 w-full h-full">
+                <p class="text-2xl text-white mb-4">Contact Medium</p>
+                <form [formGroup]="contactCreateForm" class="border-2 border-white p-6 pb-12 grid grid-cols-2 gap-6 bg-gray-500 rounded-lg opacity-80">
+                    <div class="sm:col-span-1 sm:flex flex-col">
+                        <label class="font-bold text-lg text-white" for="email" >Email</label>
+                        <input type="email" id="email" class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" formControlName="email" />
+                        <div *ngIf="
+                    contactCreateForm.controls['email'].invalid &&
+                    contactCreateForm.controls['email'].touched
+                  " class="text-red-600 font-bold">
+                            Please enter a valid email address
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-span-1 flex flex-col">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" class="border p-2 rounded" formControlName="phone" />
-                    <div *ngIf="
-                contactCreateForm.controls['phone'].invalid &&
-                contactCreateForm.controls['phone'].touched
-              " class="text-red-500">
-                        Please enter a valid phone number
+    
+                    <div class="col-span-1 flex flex-col">
+                        <label class="font-bold text-lg text-white" for="phone">Phone</label>
+                        <input type="tel" id="phone" class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" formControlName="phone" />
+                        <div *ngIf="
+                    contactCreateForm.controls['phone'].invalid &&
+                    contactCreateForm.controls['phone'].touched
+                  " class="text-red-600 font-bold">
+                            Please enter a valid phone number
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-span-1 flex flex-col">
-                    <label for="phone">Fax</label>
-                    <input type="tel" id="fax" class="border p-2 rounded" formControlName="fax" />
-                    <div *ngIf="
-                contactCreateForm.controls['fax'].invalid &&
-                contactCreateForm.controls['fax'].touched
-              " class="text-red-500">
-                        Please enter a valid fax number
+    
+                    <div class="col-span-1 flex flex-col">
+                        <label class="font-bold text-lg text-white" for="phone">Fax</label>
+                        <input type="tel" id="fax" class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" formControlName="fax" />
+                        <div *ngIf="
+                    contactCreateForm.controls['fax'].invalid &&
+                    contactCreateForm.controls['fax'].touched
+                  " class="text-red-600 font-bold">
+                            Please enter a valid fax number
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-span-1 flex flex-col">
-                    <label for="phone">Home Phone</label>
-                    <input type="tel" id="homePhone" class="border p-2 rounded" formControlName="homePhone" />
-                    <div *ngIf="
-                contactCreateForm.controls['homePhone'].invalid &&
-                contactCreateForm.controls['homePhone'].touched
-              " class="text-red-500">
-                        Please enter a valid home phone
+    
+                    <div class="col-span-1 flex flex-col">
+                        <label class="font-bold text-lg text-white" for="phone">Home Phone</label>
+                        <input type="tel" id="homePhone" class="w-full py-2 px-4 mb-3 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400" formControlName="homePhone" />
+                        <div *ngIf="
+                    contactCreateForm.controls['homePhone'].invalid &&
+                    contactCreateForm.controls['homePhone'].touched
+                  " class="text-red-600 font-bold">
+                            Please enter a valid home phone
+                        </div>
                     </div>
-                </div>
+                </form>
 
-                <div class="flex justify-between gap-5 mt-4 col-span-2">
+                <div class="sm:flex justify-evenly mt-4">
                     <app-button [label]="'Exit'" [type]="'secondary'" [width]="'150px'" [isDisabled]="false"
                         (onClick)="goToSearch()"></app-button>
-
-
-                    <app-button [label]="'Previous'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+                
+                    <!-- Burada flex-container'ı optimize ettik -->
+                    <div class="sm:flex gap-4">
+                        <app-button [label]="'Previous'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
                         (onClick)="handlePrevious()"></app-button>
-
-                    <app-button [label]="'Save'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
-                        (onClick)="handleButtonClick()"></app-button>
-
+                
+                        <app-button [label]="'Save'" [type]="'primary'" [width]="'150px'" [isDisabled]="false"
+                            (onClick)="handleButtonClick()"></app-button>
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </main>

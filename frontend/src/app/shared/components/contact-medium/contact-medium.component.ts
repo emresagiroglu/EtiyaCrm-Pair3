@@ -82,7 +82,7 @@ export class ContactMediumComponent implements OnInit{
   }
 
   handlePrevious() {
-    console.log('Going to previous step...');
+    this.router.navigate([`/address-info`])
   }
 
   handleSave() {

@@ -1,4 +1,3 @@
-import { routes } from './../../../app.routes';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,9 +29,9 @@ import { CustomerService } from '../../services/customer-service/customer.servic
   styleUrl: './customer-create.component.scss',
 })
 export class CustomerCreateComponent implements OnInit {
-  customerForm: FormGroup; // Reactive Form için FormGroup
-  selectedOption: string = 'all'; // Varsayılan olarak tüm inputlar açık
-  maxDate: string; // Maksimum seçilebilir tarih
+  customerForm: FormGroup; 
+  selectedOption: string = 'all'; 
+  maxDate: string; 
   showExitPopup: boolean = false;
   showModal: boolean = false;
   
@@ -69,18 +68,17 @@ export class CustomerCreateComponent implements OnInit {
   ];
 
   handleButtonClick() {
-    // Form validasyonu
+    //Form validation
     if (this.customerForm.invalid) {
       this.customerForm.markAllAsTouched();
       this.showModal =true;
       return;
     }
 
-    // Kaydedilmiş formu al
     const savedForm = this.customerService.getFormData();
     console.log(savedForm);
   
-    // Eğer savedForm boşsa, yeni müşteri yaratılır
+    //If savedForm is empty, new customer is created
     if (!savedForm || Object.keys(savedForm).length === 0) {
       const customerCreateRequest: CustomerCreateRequest = this.customerForm.value;
       console.log("1");
@@ -89,7 +87,6 @@ export class CustomerCreateComponent implements OnInit {
           this.customerService.customerId = response.id;
           this.customerService.setFormData(this.customerForm);
           console.log("2");
-          // Başarılı olduğunda adres bilgisine yönlendir
           this.router.navigate(['/address-info']);
         },
         error: (error) => {
@@ -97,20 +94,18 @@ export class CustomerCreateComponent implements OnInit {
         }
       });
     }
-    // Eğer savedForm boş değil ve formda güncelleme yoksa
+    //If savedForm is not empty and there is no update in the form, just redirect to the address information page
     else if (savedForm && !this.isFormUpdated()) {
-      // Formda değişiklik yoksa sadece adres bilgisi sayfasına yönlendir
       this.router.navigate(['/address-info']);
       console.log("3");
     }
-    // Eğer savedForm dolu ve formda değişiklik varsa
+    //If savedForm is full and there are changes to the form
     else if (savedForm && this.isFormUpdated()) {
-      const customerUpdateRequest: CustomerCreateRequest = this.customerForm.value; // Formdaki güncel değerler update isteği olarak gönderilir
-      const customerId = this.customerService.customerId; // Güncellenecek müşteri ID'si
+      const customerUpdateRequest: CustomerCreateRequest = this.customerForm.value;
+      const customerId = this.customerService.customerId;
       console.log("4");
       this.customerService.updateCustomer(customerUpdateRequest, customerId).subscribe({
         next: (response) => {
-          // Güncelleme başarılı olduğunda adres bilgisine yönlendir
           this.customerService.setFormData(this.customerForm);
           this.router.navigate(['/address-info']);
         },
@@ -143,25 +138,22 @@ export class CustomerCreateComponent implements OnInit {
   isFormUpdated(): boolean {
     const savedForm = this.customerService.getFormData();
     
-    // Eğer kaydedilen form yoksa, güncellenmemiştir
+    //If there is no saved form, it has not been updated
     if (!savedForm) {
       return false;
     }
-  
-    // customerForm içindeki mevcut değerleri alıyoruz
+
     const currentFormValue = this.customerForm.value;
   
-    // Formdaki her alanı tek tek karşılaştırıyoruz
+    //We compare each field in the form one by one
     for (const key in currentFormValue) {
       if (currentFormValue.hasOwnProperty(key)) {
-        // Eğer herhangi bir değer farklıysa, form güncellenmiş demektir
         if (currentFormValue[key] !== savedForm.value[key]) {
           return true;
         }
       }
     }
   
-    // Eğer tüm değerler aynıysa form güncellenmemiştir
     return false;
   }
   
