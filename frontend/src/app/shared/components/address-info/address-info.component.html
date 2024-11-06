@@ -17,9 +17,11 @@
             </div>
 
             <div class="flex flex-row text-center ml-4">
-              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.neighbourhoodId }},</p>
               <p class="text-lg font-bold text-gray-950 mr-4">{{ address.street }},</p>
               <p class="text-lg font-bold text-gray-950">{{ address.houseNumber }}</p>
+              <p class="text-lg font-bold text-gray-950">{{ address.neighbourhoodName }}</p>
+              <p class="text-lg font-bold text-gray-950">{{ address.districtName }}</p>
+              <p class="text-lg font-bold text-gray-950">{{ address.cityName }}</p>
             </div>
           </div>
           <!--           <div *ngFor="let address of addresses" class=" rounded-lg w-full max-w-md p-4 flex items-start justify-between">

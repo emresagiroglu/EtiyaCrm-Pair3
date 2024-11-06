@@ -6,4 +6,7 @@ export interface AddressResponse
     addressName: string,
     street: string,
     houseNumber: number
+    neighbourhoodName: string,
+    districtName: string,
+    cityName: string
 }
