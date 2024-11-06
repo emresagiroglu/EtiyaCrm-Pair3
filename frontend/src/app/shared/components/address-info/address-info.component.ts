@@ -38,7 +38,7 @@ export class AddressInfoComponent implements OnInit{
   showModal: boolean = false;
   showExitPopup: boolean = false;
   showErrorModal: boolean = false;
-  addresses: AddressResponse[] = []; // Adresleri saklamak için dizi
+  addresses: AddressResponse[] = [];
   addressForm : FormGroup;
   currentCustomerId! : number; 
   addressSummary: AddressSummary[] = []
@@ -165,7 +165,6 @@ export class AddressInfoComponent implements OnInit{
                 }
                 this.addressService.createAddress(addressRequest).subscribe({
                   next:(response) => {
-                    console.log(response)
                     this.closeModal()
                     this.getAllAddresses()
                   }
