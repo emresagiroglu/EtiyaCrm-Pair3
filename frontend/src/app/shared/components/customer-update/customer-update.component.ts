@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -41,7 +40,9 @@ export class CustomerUpdateComponent implements OnInit {
   currentCustomerId! : number;
   customerId: number | null = null;  // Müşteri kimliğini tutmak için bir değişken
  // customer: CustomerU | null = null;  // Güncellenmiş müşteri bilgileri
+ showExitPopup: boolean = false;
         
+  showModal: boolean = false;
         
   constructor(private fb: FormBuilder, private customerService : CustomerService, 
     private cncInfoService : ContactInfoService, private router : Router,private route: ActivatedRoute) {
@@ -54,18 +55,27 @@ export class CustomerUpdateComponent implements OnInit {
     });
     
   }
+  showExitModal() {
+    this.showExitPopup = true;
+  }
+
+  closeExitModal() {
+    this.showExitPopup = false;
+  }
 
   ngOnInit() {
     this.currentCustomerId = this.customerService.customerId;
   }
+
  
   handleButtonClick() {
     if (this.customerUpdateForm.invalid) {
       this.customerUpdateForm.markAllAsTouched();
-      alert('Please fill out all required fields correctly.');
+      this.showModal =true;
       return;
     }
-
+ 
+    
     console.log('Form Submitted:', this.customerUpdateForm.value);
 
     const cncInfoUpdateRequest: CncInfoUpdateRequest = {
@@ -94,8 +104,9 @@ export class CustomerUpdateComponent implements OnInit {
 
   }
 
-  showModal: boolean = false;
-
+  closeModal() {
+    this.showModal = false;
+  }
   toggleModal() {
     this.showModal = !this.showModal;
   }
