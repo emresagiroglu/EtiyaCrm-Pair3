@@ -1,21 +1,24 @@
-import { CustomerService } from './../../services/customer-service/customer.service';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, FormBuilder, FormGroup, Validators,ReactiveFormsModule, NgForm } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
 import { AddressSummary } from '../../models/address/AddressSummary';
 import { AddressRequest } from '../../models/address/AddressRequest';
 import { DistrictRequest } from '../../models/address/DistrictRequest';
 import { CityResponse } from '../../models/address/CityResponse';
-import { AddressService } from './../../services/customer-service/address.service';
 import { CityRequest } from '../../models/address/CityRequest';
-import { Component, Input, OnInit } from '@angular/core';
-import { PopupComponent } from '../popup/popup.component';
-import { ButtonComponent } from '../button/button.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder, FormGroup, Validators,ReactiveFormsModule, NgForm } from '@angular/forms';
-import { RadioButtonComponent } from '../radio-button/radio-button.component';;
-import { Observable } from 'rxjs';
 import { NeighbourhoodRequest } from '../../models/address/NeighbourhoodRequest';
 import { AddressResponse } from '../../models/address/AddressResponse';
-import { Route, Router } from '@angular/router';
 
+import { AddressService } from './../../services/customer-service/address.service';
+import { CustomerService } from './../../services/customer-service/customer.service';
+
+import { PopupComponent } from '../popup/popup.component';
+import { ButtonComponent } from '../button/button.component';
+import { RadioButtonComponent } from '../radio-button/radio-button.component';;
 
 
 @Component({
@@ -72,7 +75,6 @@ export class AddressInfoComponent implements OnInit{
     this.showExitPopup = true;
   }
 
-  //popup açılması
   openModal() {
     this.showModal = true;
  
@@ -83,7 +85,7 @@ export class AddressInfoComponent implements OnInit{
     this.addressService.getAllAddressByCustomerId(this.currentCustomerId).subscribe({
       next: (response : AddressResponse[]) => {
           this.addresses = response;
-          
+          console.log(response)
       }
     })
   }

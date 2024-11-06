@@ -4,26 +4,28 @@
     <div class="border-2 border-white p-6 sm:pb-12 w-full h-full">
       <p class="text-2xl text-white mb-4">Address Info</p>
       <div class="border-2 border-white p-3">
-        <div class="bg-gray-200 opacity-60 rounded-md h-64 p-6">
+        <div class="bg-gray-200 rounded-md h-64 p-6">
           @if(addresses.length === 0){
-          <div class="flex justify-center items-center h-full">
-            <p class="text-bold">There is no address</p>
+        <div class="flex justify-center items-center h-full">
+            <p class="text-2xl font-semibold">There is no address</p>
           </div>
-          }@else{
-          <div *ngFor="let address of addresses"
-            class="bg-white rounded-lg w-full max-w-md p-4 flex items-center justify-between mt-2">
-            <div class="bg-gray-900 rounded-full p-2 flex items-center justify-center text-white">
-              <app-radio-button [options]="options" [(selectedOption)]="selectedOption"></app-radio-button>
-            </div>
-
+        }@else{
+          <div  *ngFor="let address of addresses" class="flex gap-2 w-full ">
+          <div class="bg-gray-600 rounded-lg w-1/5 p-2 flex items-center justify-center cursor-pointer text-white">
+            <app-radio-button [options]="options" [(selectedOption)]="selectedOption"></app-radio-button>
+          </div>
+          <div 
+            class="bg-white rounded-lg w-4/5 p-4 flex items-center justify-between mt-18">
+            
             <div class="flex flex-row text-center ml-4">
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.neighbourhoodName}},</p>
               <p class="text-lg font-bold text-gray-950 mr-4">{{ address.street }},</p>
-              <p class="text-lg font-bold text-gray-950">{{ address.houseNumber }}</p>
-              <p class="text-lg font-bold text-gray-950">{{ address.neighbourhoodName }}</p>
-              <p class="text-lg font-bold text-gray-950">{{ address.districtName }}</p>
-              <p class="text-lg font-bold text-gray-950">{{ address.cityName }}</p>
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.houseNumber }},</p>
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.districtName }},</p>
+              <p class="text-lg font-bold text-gray-950 mr-4">{{ address.cityName }},</p>
             </div>
-          </div>
+          </div> 
+        </div>
           <!--           <div *ngFor="let address of addresses" class=" rounded-lg w-full max-w-md p-4 flex items-start justify-between">
               <div class="bg-gray-900 rounded-xl p-1 flex items-center justify-end text-white">
                 <app-radio-button
@@ -39,8 +41,7 @@
               </div>
             </div>
           -->
-          }
-
+        }
         </div>
       </div>
       <div class="sm:flex justify-evenly mt-4">
