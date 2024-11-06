@@ -15,7 +15,7 @@ import { tokenGuard } from './shared/guards/token.guard';
 import { ContactMediumComponent } from './shared/components/contact-medium/contact-medium.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'customer-search', canActivate: [tokenGuard], component: CustomerSearchComponent },
   { path: 'customer-create', canActivate: [tokenGuard], component: CustomerCreateComponent },
