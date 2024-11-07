@@ -27,13 +27,12 @@ public interface AddressMapper {
     @Mapping(source = "customerId.id" , target = "customerId")
     @Mapping(source = "neighbourhoodId.id" , target = "neighbourhoodId")
     ListAddressResponseDto addressToListAddressResponseDto(Address address);
+    
     @Mapping(source = "customerId.id" , target = "customerId")
     @Mapping(source = "neighbourhoodId.id" , target = "neighbourhoodId")
     @Mapping(source = "neighbourhoodId.name", target = "neighbourhoodName")
     @Mapping(source = "neighbourhoodId.district_id.name", target = "districtName")
     @Mapping(source = "neighbourhoodId.district_id.city_id.name", target = "cityName")
-    //List<ListAddressResponseDto> listAddressResponseDtoFromAddressList(List<Address> addressList);
-
     default List<ListAddressResponseDto> listAddressResponseDtoFromAddressList(List<Address> dtos){
         List<ListAddressResponseDto> responseDtos = dtos.stream().map(address ->
                 new ListAddressResponseDto(
