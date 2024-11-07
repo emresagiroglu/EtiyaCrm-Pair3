@@ -49,8 +49,6 @@ export class ContactMediumComponent implements OnInit{
       return;
     }
 
-    console.log('Form Submitted:', this.contactCreateForm.value);
-
     const cncInfoCreateRequest: CncInfoCreateRequest = {
       customerId : this.customerService.customerId,
       email: this.contactCreateForm.get('email')?.value,
@@ -59,12 +57,9 @@ export class ContactMediumComponent implements OnInit{
       fax: this.contactCreateForm.get('fax')?.value,
     }
 
-    console.log("cncInfoCreateRequest",cncInfoCreateRequest)
-
     this.cncInfoService.createCncInfo(cncInfoCreateRequest).subscribe({
       next: (response) => {
         if(response.customerId != null) {
-          console.log(response)
           this.router.navigate(['/customer-search']);
         }
       }
