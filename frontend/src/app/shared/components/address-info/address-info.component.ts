@@ -80,7 +80,6 @@ export class AddressInfoComponent implements OnInit{
  
   }
 
-  //sayfa ilk açıldığında ve her veri eklendiğinde tekrardan veri çekecek.
   getAllAddresses(){
     this.addressService.getAllAddressByCustomerId(this.currentCustomerId).subscribe({
       next: (response : AddressResponse[]) => {
@@ -90,7 +89,6 @@ export class AddressInfoComponent implements OnInit{
     })
   }
 
-  //popup kapanması
   closeModal() {
     this.showModal = false;
     this.showExitPopup = false;
@@ -98,7 +96,6 @@ export class AddressInfoComponent implements OnInit{
     this.addressForm.reset()
   }
 
-  //addresin savelenmesi
   saveAddress() {
     if(this.addressForm.valid){
       console.log("success")
@@ -112,16 +109,13 @@ export class AddressInfoComponent implements OnInit{
       this.router.navigate(['/contact-medium']);
     }
     this.showErrorModal = true;
-    
   }
+
   previousComponent(){
     this.router.navigate(['/customer-create']);
   }
 
-
-  //form valide mi kotnrolü
   onSubmit(form: NgForm) {
-    // Tüm alanlar doluysa ve form geçerliyse adresi kaydet
     if (form.valid) {
       this.saveAddress();
       
@@ -132,8 +126,6 @@ export class AddressInfoComponent implements OnInit{
     this.router.navigate(['/customer-search']);
   }
 
-
-  // city oluşumunun başlaması için ilk fonksiyon
   createAddressInit(){
     const cityRequest :CityRequest= {
       name : this.addressForm.get('city')?.value
@@ -141,7 +133,6 @@ export class AddressInfoComponent implements OnInit{
     this.createAddress(cityRequest);
   }
 
-  //sırayla city-district-neighbourhood-address createleme
   createAddress(cityRequest : CityRequest)  {
     this.addressService.createCity(cityRequest).subscribe({
       next: (response) => {
@@ -175,8 +166,6 @@ export class AddressInfoComponent implements OnInit{
             })
           }
         })
-        
-
       }
     })
   }
